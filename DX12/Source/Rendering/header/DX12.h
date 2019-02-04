@@ -1,6 +1,8 @@
 #pragma once
-#include "d3dx12.h"
 
+#pragma region Includes
+#include "d3dx12.h"
+#pragma endregion
 
 namespace Rendering
 {
@@ -10,6 +12,7 @@ namespace Rendering
 
 		DX12();
 		~DX12();
+		void Init();
 
 	private: 
 
