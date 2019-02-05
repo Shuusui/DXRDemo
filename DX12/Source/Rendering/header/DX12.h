@@ -3,7 +3,7 @@
 #pragma region Includes
 #include "d3dx12.h"
 #include "dxgi.h"
-
+#include "dxgi1_4.h"
 #pragma endregion
 
 
@@ -20,14 +20,20 @@ namespace Rendering
 		void Init();
 
 	private: 
+
+		static const UINT FrameCount = 2; 
 		//Pipeline objects
 		
-		MSWRL::ComPtr<IDXGISwapChain> m_swapChain;
+		MSWRL::ComPtr<IDXGISwapChain3> m_swapChain;
 		MSWRL::ComPtr<ID3D12Device> m_device; 
 		MSWRL::ComPtr<ID3D12CommandQueue> m_commandQueue;
 		MSWRL::ComPtr<ID3D12PipelineState> m_pipelineState;
 		MSWRL::ComPtr<ID3D12GraphicsCommandList> m_commandList;
-		
+		MSWRL::ComPtr<ID3D12DescriptorHeap> m_rtvHeap;
+		MSWRL::ComPtr<ID3D12Resource> m_renderTargets[FrameCount]; 
+		MSWRL::ComPtr<ID3D12CommandAllocator> m_commandAllocator; 
+		UINT m_rtvDescriptorSize;
+
 		//App resources
 		MSWRL::ComPtr<ID3D12Resource> m_vertexBuffer;
 		D3D12_VERTEX_BUFFER_VIEW m_vertexBufferView; 

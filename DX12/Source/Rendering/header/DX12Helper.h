@@ -30,4 +30,23 @@ namespace Rendering
 			throw HrException(hr);
 		}
 	}
+
+	static inline void GetHardwareAdapter(IDXGIFactory4* pFactory, IDXGIAdapter1** ppAdapter)
+	{
+		*ppAdapter = nullptr; 
+		for (UINT adapterIndex = 0;; ++adapterIndex)
+		{
+			IDXGIAdapter1* pAdapter = nullptr; 
+			if (DXGI_ERROR_NOT_FOUND == pFactory->EnumAdapters1(adapterIndex, &pAdapter))
+			{
+				break;
+			}
+			if (SUCCEEDED(D3D12CreateDevice(pAdapter, D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr)))
+			{
+				*ppAdapter = pAdapter;
+				return;
+			}
+			pAdapter->Release();
+		}
+	}
 }
