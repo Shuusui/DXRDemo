@@ -1,11 +1,12 @@
-#include "..\header\DX12.h"
+#include "..\Public\DX12.h"
+#include "..\Public\DX12Helper.h"
 #include "winerror.h"
-#include "..\header\DX12Helper.h"
 #if defined (_DEBUG)
 #include "D3DCompiler.h"
 #endif
 
-Rendering::DX12::DX12()
+Rendering::DX12::DX12(const WindowParams& wndCreationParams)
+	:m_wndParams(wndCreationParams)
 {
 }
 
@@ -45,12 +46,12 @@ void Rendering::DX12::Init()
 
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {}; 
 	swapChainDesc.BufferCount = FrameCount; 
-	swapChainDesc.BufferDesc.Width = 1920; 
-	swapChainDesc.BufferDesc.Height = 1080; 
+	swapChainDesc.BufferDesc.Width = m_wndParams.Width;
+	swapChainDesc.BufferDesc.Height = m_wndParams.Height;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; 
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; 
-	swapChainDesc.OutputWindow; //TODO: Add output window here
+	swapChainDesc.OutputWindow = m_wndParams.WndHandle;
 	swapChainDesc.SampleDesc.Count = 1; 
 	swapChainDesc.Windowed = FALSE; 
 

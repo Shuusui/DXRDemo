@@ -5,6 +5,7 @@
 #include "dxgi.h"
 #include "dxgi1_4.h"
 #include "directxmath.h"
+#include "SharedStructs.h"
 #pragma endregion
 
 
@@ -14,13 +15,14 @@ namespace Rendering
 	namespace MSWRL = Microsoft::WRL; 
 	class DX12
 	{
-	public: 
+	public:
 
-		DX12();
+		DX12(const WindowParams& wndCreationParams);
 		~DX12();
 		void Init();
 		void LoadAssets(); 
 	private: 
+		WindowParams m_wndParams;
 
 		struct Vertex
 		{
