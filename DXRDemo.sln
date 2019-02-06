@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXRDemo", "DXRDemo\DXRDemo.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DX12", "DX12\DX12.vcxproj", "{F243CD51-664B-455B-B9D1-539610AE1537}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowCreation", "WindowCreation\WindowCreation.vcxproj", "{C5D83BEF-8085-4163-9204-CD79DA119E9B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowManagement", "WindowManagement\WindowManagement.vcxproj", "{C5D83BEF-8085-4163-9204-CD79DA119E9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
