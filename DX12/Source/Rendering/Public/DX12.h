@@ -4,6 +4,7 @@
 #include "d3dx12.h"
 #include "dxgi.h"
 #include "dxgi1_4.h"
+#include "directxmath.h"
 #pragma endregion
 
 
@@ -18,12 +19,17 @@ namespace Rendering
 		DX12();
 		~DX12();
 		void Init();
-
+		void LoadAssets(); 
 	private: 
+
+		struct Vertex
+		{
+			DirectX::XMFLOAT3 position; 
+			DirectX::XMFLOAT4 color; 
+		};
 
 		static const UINT FrameCount = 2; 
 		//Pipeline objects
-		
 		MSWRL::ComPtr<IDXGISwapChain3> m_swapChain;
 		MSWRL::ComPtr<ID3D12Device> m_device; 
 		MSWRL::ComPtr<ID3D12CommandQueue> m_commandQueue;
@@ -32,6 +38,9 @@ namespace Rendering
 		MSWRL::ComPtr<ID3D12DescriptorHeap> m_rtvHeap;
 		MSWRL::ComPtr<ID3D12Resource> m_renderTargets[FrameCount]; 
 		MSWRL::ComPtr<ID3D12CommandAllocator> m_commandAllocator; 
+		MSWRL::ComPtr<ID3D12RootSignature> m_rootSignature; 
+		D3D12_VIEWPORT m_viewport;
+		D3D12_RECT m_scissorRect; 
 		UINT m_rtvDescriptorSize;
 
 		//App resources
@@ -44,5 +53,8 @@ namespace Rendering
 		MSWRL::ComPtr<ID3D12Fence> m_fence;
 		UINT64 m_fenceValue; 
 
+		void PopulateCommandList(); 
+		void WaitForPreviousFrame();
+		void OnDestroy();
 	};
 }

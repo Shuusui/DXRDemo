@@ -6,9 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXRDemo", "DXRDemo\DXRDemo.vcxproj", "{9D42020B-ED24-487F-846A-D33FF00BAB11}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F243CD51-664B-455B-B9D1-539610AE1537} = {F243CD51-664B-455B-B9D1-539610AE1537}
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B} = {C5D83BEF-8085-4163-9204-CD79DA119E9B}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DX12", "DX12\DX12.vcxproj", "{F243CD51-664B-455B-B9D1-539610AE1537}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowCreation", "WindowCreation\WindowCreation.vcxproj", "{C5D83BEF-8085-4163-9204-CD79DA119E9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +37,14 @@ Global
 		{F243CD51-664B-455B-B9D1-539610AE1537}.Release|x64.Build.0 = Release|x64
 		{F243CD51-664B-455B-B9D1-539610AE1537}.Release|x86.ActiveCfg = Release|Win32
 		{F243CD51-664B-455B-B9D1-539610AE1537}.Release|x86.Build.0 = Release|Win32
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Debug|x64.ActiveCfg = Debug|x64
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Debug|x64.Build.0 = Debug|x64
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Debug|x86.Build.0 = Debug|Win32
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Release|x64.ActiveCfg = Release|x64
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Release|x64.Build.0 = Release|x64
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Release|x86.ActiveCfg = Release|Win32
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
