@@ -5,8 +5,10 @@
 #include "D3DCompiler.h"
 #endif
 
-Rendering::DX12::DX12(const UtilRen::SWindowParams& wndCreationParams)
-	:m_wndParams(wndCreationParams)
+Rendering::DX12::DX12(const UtilRen::SWindowParams& wndParams)
+	:m_wndParams(wndParams)
+	, m_viewport(0.0f, 0.0f, static_cast<float>(wndParams.Width), static_cast<float>(wndParams.Height))
+	, m_scissorRect(0, 0, static_cast<LONG>(wndParams.Width), static_cast<LONG>(wndParams.Height))
 {
 }
 

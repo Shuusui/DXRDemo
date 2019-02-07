@@ -15,7 +15,7 @@ namespace Rendering
 		{
 		public:
 			static HWND CreateNewWindow(const UtilRen::SWindowCreationParams& wndCreationParams, const UtilRen::SWindowClassParams& wndClassParams, const UtilRen::SAdjustWindowRectParams& adjWndRectParams, const UtilRen::SWindowHandleParams& wndHandleParams);
-			static int RunWindow(const HWND& wndHandle);
+			static void RunWindow(const HWND& wndHandle, MSG& msg);
 		};
 	}
 }

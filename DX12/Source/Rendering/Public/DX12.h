@@ -42,8 +42,8 @@ namespace Rendering
 		MSWRL::ComPtr<ID3D12Resource> m_renderTargets[FrameCount]; 
 		MSWRL::ComPtr<ID3D12CommandAllocator> m_commandAllocator; 
 		MSWRL::ComPtr<ID3D12RootSignature> m_rootSignature; 
-		D3D12_VIEWPORT m_viewport;
-		D3D12_RECT m_scissorRect; 
+		CD3DX12_VIEWPORT m_viewport;
+		CD3DX12_RECT m_scissorRect;
 		UINT m_rtvDescriptorSize;
 
 		//App resources

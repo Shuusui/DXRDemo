@@ -5,9 +5,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 	WPARAM wParam,
 	LPARAM lParam)
 {
-	if (message == WM_CLOSE)
+	switch (message)
 	{
+	case WM_DESTROY:
 		PostQuitMessage(0);
+		break;
 	}
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
@@ -45,12 +47,11 @@ HWND Rendering::Window::WindowManager::CreateNewWindow(const UtilRen::SWindowCre
 	return wndHandle; 
 }
 
-int Rendering::Window::WindowManager::RunWindow(const HWND & wndHandle)
+void Rendering::Window::WindowManager::RunWindow(const HWND & wndHandle, MSG& msg)
 {
-	MSG msg = {};
-	GetMessage(&msg, wndHandle, 0, 0); 
-	TranslateMessage(&msg); 
-	DispatchMessage(&msg); 
-	return (int)msg.wParam;
-
+	if (PeekMessage(&msg, wndHandle, 0, 0, PM_REMOVE))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 }

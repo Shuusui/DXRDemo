@@ -9,7 +9,7 @@
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-	UtilRen::SWindowCreationParams wndCreationParams = {UtilRen::EResolution::FULL_HD};
+	UtilRen::SWindowCreationParams wndCreationParams = { UtilRen::EResolution::FULL_HD };
 	wndCreationParams.HInstance = hInstance;
 	wndCreationParams.NCmdShow = nShowCmd;
 
@@ -25,13 +25,16 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	UtilRen::SWindowParams wndParams = { UtilRen::EResolution::FULL_HD };
 
 	wndParams.WndHandle = Rendering::Window::WindowManager::CreateNewWindow(wndCreationParams, wndClassParams, adjWndRectParams, wndHandleParams);
-	
-	Rendering::DX12* dx12 = new Rendering::DX12(wndParams); 
+
+	Rendering::DX12* dx12 = new Rendering::DX12(wndParams);
 	dx12->Init();
 
-	while (Rendering::Window::WindowManager::RunWindow(wndParams.WndHandle) >0)
+	MSG msg = {};
+
+	while (msg.wParam != WM_QUIT)
 	{
 		dx12->OnRender();
+		Rendering::Window::WindowManager::RunWindow(wndParams.WndHandle, msg);
 	}
 	dx12->OnDestroy();
 	delete(dx12);
