@@ -12,7 +12,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
-HWND Rendering::Window::WindowManager::CreateNewWindow(const WindowCreationParams& wndCreationParams, const WindowClassParams& wndClassParams, const AdjustWindowRectParams& adjWndRectParams, const WindowHandleParams& wndHandleParams)
+HWND Rendering::Window::WindowManager::CreateNewWindow(const UtilRen::SWindowCreationParams& wndCreationParams, const UtilRen::SWindowClassParams& wndClassParams, const UtilRen::SAdjustWindowRectParams& adjWndRectParams, const UtilRen::SWindowHandleParams& wndHandleParams)
 {
 	WNDCLASSEX wndClass = {}; 
 	wndClass.cbSize = sizeof(WNDCLASSEX); 
@@ -40,6 +40,8 @@ HWND Rendering::Window::WindowManager::CreateNewWindow(const WindowCreationParam
 		wndCreationParams.HInstance,
 		wndHandleParams.LpParam
 	);
+	ShowWindow(wndHandle, wndCreationParams.NCmdShow);
+	UpdateWindow(wndHandle);
 	return wndHandle; 
 }
 
@@ -49,6 +51,6 @@ int Rendering::Window::WindowManager::RunWindow(const HWND & wndHandle)
 	GetMessage(&msg, wndHandle, 0, 0); 
 	TranslateMessage(&msg); 
 	DispatchMessage(&msg); 
-	return msg.wParam;
+	return (int)msg.wParam;
 
 }

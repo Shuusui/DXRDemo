@@ -4,16 +4,17 @@
 #include "SharedStructs.h"
 #pragma endregion //Includes
 
+#define WINDOW_MANAGER_API __declspec(dllexport)
 
 namespace Rendering
 {
 	namespace Window
 	{
 
-		class WindowManager
+		class WINDOW_MANAGER_API WindowManager
 		{
 		public:
-			static HWND CreateNewWindow(const WindowCreationParams& wndCreationParams, const WindowClassParams& wndClassParams, const AdjustWindowRectParams& adjWndRectParams, const WindowHandleParams& wndHandleParams);
+			static HWND CreateNewWindow(const UtilRen::SWindowCreationParams& wndCreationParams, const UtilRen::SWindowClassParams& wndClassParams, const UtilRen::SAdjustWindowRectParams& adjWndRectParams, const UtilRen::SWindowHandleParams& wndHandleParams);
 			static int RunWindow(const HWND& wndHandle);
 		};
 	}

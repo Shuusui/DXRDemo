@@ -22,6 +22,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowManagement", "WindowM
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderingShared", "RenderingShared\RenderingShared.vcxproj", "{08FDC61F-E5A2-4FC6-A112-BCE01C293C69}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shader", "Shader", "{69006506-5625-4F6E-B3D0-E2A9C261C518}"
+	ProjectSection(SolutionItems) = preProject
+		Shaders\shaders.hlsl = Shaders\shaders.hlsl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

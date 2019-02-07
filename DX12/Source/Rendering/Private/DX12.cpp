@@ -5,7 +5,7 @@
 #include "D3DCompiler.h"
 #endif
 
-Rendering::DX12::DX12(const WindowParams& wndCreationParams)
+Rendering::DX12::DX12(const UtilRen::SWindowParams& wndCreationParams)
 	:m_wndParams(wndCreationParams)
 {
 }
@@ -50,10 +50,10 @@ void Rendering::DX12::Init()
 	swapChainDesc.BufferDesc.Height = m_wndParams.Height;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; 
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; 
-	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; 
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; 
 	swapChainDesc.OutputWindow = m_wndParams.WndHandle;
 	swapChainDesc.SampleDesc.Count = 1; 
-	swapChainDesc.Windowed = FALSE; 
+	swapChainDesc.Windowed = TRUE; 
 
 	MSWRL::ComPtr<IDXGISwapChain> swapChain; 
 	ThrowIfFailed(
@@ -87,6 +87,7 @@ void Rendering::DX12::Init()
 
 	}
 	ThrowIfFailed(m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&m_commandAllocator)));
+	LoadAssets();
 }
 
 void Rendering::DX12::LoadAssets()
@@ -110,8 +111,8 @@ void Rendering::DX12::LoadAssets()
 		UINT compileFlags = 0;
 #endif 
 
-		ThrowIfFailed(D3DCompileFromFile(L"../../../Shaders/shaders.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr));
-		ThrowIfFailed(D3DCompileFromFile(L"../../../Shaders/shaders.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));
+		ThrowIfFailed(D3DCompileFromFile(L"../Shaders/shaders.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr));
+		ThrowIfFailed(D3DCompileFromFile(L"../Shaders/shaders.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));
 
 		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
 		{
@@ -141,7 +142,7 @@ void Rendering::DX12::LoadAssets()
 	ThrowIfFailed(m_commandList->Close()); 
 
 	{
-		Vertex triangleVertices[] =
+		SVertex triangleVertices[] =
 		{
 			{{0.0f, 0.25f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
 			{{0.25f, -0.25f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
@@ -165,7 +166,7 @@ void Rendering::DX12::LoadAssets()
 		m_vertexBuffer->Unmap(0, nullptr);
 
 		m_vertexBufferView.BufferLocation = m_vertexBuffer->GetGPUVirtualAddress();
-		m_vertexBufferView.StrideInBytes = sizeof(Vertex);
+		m_vertexBufferView.StrideInBytes = sizeof(SVertex);
 		m_vertexBufferView.SizeInBytes = vertexBufferSize;
 	}
 	{
@@ -179,6 +180,19 @@ void Rendering::DX12::LoadAssets()
 		}
 		WaitForPreviousFrame(); 
 	}
+}
+
+void Rendering::DX12::OnRender()
+{
+	PopulateCommandList(); 
+
+	ID3D12CommandList* ppCommandLists[] = { m_commandList.Get() };
+	m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists); 
+
+	//Present the frame
+	ThrowIfFailed(m_swapChain->Present(1, 0)); 
+
+	WaitForPreviousFrame();
 }
 
 void Rendering::DX12::PopulateCommandList()

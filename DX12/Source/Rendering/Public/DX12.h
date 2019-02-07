@@ -8,23 +8,24 @@
 #include "SharedStructs.h"
 #pragma endregion
 
-
+#define DX12_API __declspec(dllexport)
 
 namespace Rendering
 {
 	namespace MSWRL = Microsoft::WRL; 
-	class DX12
+	class DX12_API DX12
 	{
 	public:
-
-		DX12(const WindowParams& wndCreationParams);
+		DX12() = delete; 
+		DX12(const UtilRen::SWindowParams& wndCreationParams);
 		~DX12();
 		void Init();
-		void LoadAssets(); 
+		void OnRender();
+		void OnDestroy();
 	private: 
-		WindowParams m_wndParams;
+		UtilRen::SWindowParams m_wndParams;
 
-		struct Vertex
+		struct SVertex
 		{
 			DirectX::XMFLOAT3 position; 
 			DirectX::XMFLOAT4 color; 
@@ -54,9 +55,8 @@ namespace Rendering
 		HANDLE m_fenceEvent; 
 		MSWRL::ComPtr<ID3D12Fence> m_fence;
 		UINT64 m_fenceValue; 
-
 		void PopulateCommandList(); 
 		void WaitForPreviousFrame();
-		void OnDestroy();
+		void LoadAssets(); 
 	};
 }

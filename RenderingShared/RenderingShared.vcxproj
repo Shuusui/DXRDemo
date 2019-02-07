@@ -123,6 +123,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Public\HelperFunctions.h" />
+    <ClInclude Include="Source\Public\SharedEnums.h" />
+    <ClInclude Include="Source\Public\SharedMacros.h" />
     <ClInclude Include="Source\Public\SharedStructs.h" />
   </ItemGroup>
   <ItemGroup>
