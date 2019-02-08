@@ -44,6 +44,7 @@ namespace Rendering
 		MSWRL::ComPtr<ID3D12RootSignature> m_rootSignature; 
 		CD3DX12_VIEWPORT m_viewport;
 		CD3DX12_RECT m_scissorRect;
+		float m_aspectRatio;
 		UINT m_rtvDescriptorSize;
 
 		//App resources

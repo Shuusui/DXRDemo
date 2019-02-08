@@ -9,9 +9,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		break;
+		return 0;
 	}
 	return DefWindowProc(hwnd, message, wParam, lParam);
+
 }
 
 HWND Rendering::Window::WindowManager::CreateNewWindow(const UtilRen::SWindowCreationParams& wndCreationParams, const UtilRen::SWindowClassParams& wndClassParams, const UtilRen::SAdjustWindowRectParams& adjWndRectParams, const UtilRen::SWindowHandleParams& wndHandleParams)

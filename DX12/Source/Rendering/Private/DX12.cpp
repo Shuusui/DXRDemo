@@ -10,6 +10,8 @@ Rendering::DX12::DX12(const UtilRen::SWindowParams& wndParams)
 	, m_viewport(0.0f, 0.0f, static_cast<float>(wndParams.Width), static_cast<float>(wndParams.Height))
 	, m_scissorRect(0, 0, static_cast<LONG>(wndParams.Width), static_cast<LONG>(wndParams.Height))
 {
+	m_aspectRatio = static_cast<float>(wndParams.Width) / static_cast<float>(wndParams.Height);
+
 }
 
 Rendering::DX12::~DX12()
@@ -146,9 +148,9 @@ void Rendering::DX12::LoadAssets()
 	{
 		SVertex triangleVertices[] =
 		{
-			{{0.0f, 0.25f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-			{{0.25f, -0.25f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
-			{{-0.25f, -0.25f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
+			{{0.0f, 0.25f * m_aspectRatio, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+			{{0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+			{{-0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
 		};
 		const UINT vertexBufferSize = sizeof(triangleVertices);
 

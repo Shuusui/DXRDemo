@@ -21,6 +21,7 @@ namespace Util
 			case EResolution::FULL_HD:
 				return SResolution{ 1920, 1080 };
 			}
+			return SResolution{};
 		}
 	}
 	class HELPER_FUNCTIONS_API HelperFunctions
