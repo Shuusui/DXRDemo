@@ -33,8 +33,8 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 	while (msg.message != WM_QUIT)
 	{
-		dx12->OnRender();
 		Rendering::Window::WindowManager::RunWindow(wndParams.WndHandle, msg);
+		dx12->OnRender();
 	}
 	dx12->OnDestroy();
 	delete(dx12);

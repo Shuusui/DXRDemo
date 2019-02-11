@@ -50,9 +50,10 @@ HWND Rendering::Window::WindowManager::CreateNewWindow(const UtilRen::SWindowCre
 
 void Rendering::Window::WindowManager::RunWindow(const HWND & wndHandle, MSG& msg)
 {
-	if (PeekMessage(&msg, wndHandle, 0, 0, PM_REMOVE))
+	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+
 }
