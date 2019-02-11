@@ -4,6 +4,7 @@
 #include "SharedMacros.h"
 #include "WindowManager.h"
 #include "SharedStructs.h"
+#include "AssetManager.h"
 #pragma endregion
 
 
@@ -28,6 +29,10 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 	Rendering::DX12* dx12 = new Rendering::DX12(wndParams);
 	dx12->Init();
+
+	UtAI::AssetManager* assetManager = new UtAI::AssetManager();
+	assetManager->Init();
+	assetManager->ImportAsset("shaders.hlsl");
 
 	MSG msg = {};
 
