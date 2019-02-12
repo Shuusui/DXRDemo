@@ -13,22 +13,32 @@ namespace Util
 {
 	namespace AssetImporter
 	{
+
+		struct ASSET_IMPORTER_API Directories
+		{
+			std::string WorkingDir;
+			std::string ContentDir;
+			std::string ShadersDir;
+			std::string TexturesDir;
+			std::string ObjectsDir;
+			std::string MaterialsDir;
+		};
 		class ASSET_IMPORTER_API AssetManager
 		{
 		public:
-			AssetManager(); 
+			AssetManager();
 			void Init();
 			void ImportAsset(const std::string& fileName);
+			Directories GetDirectories() const; 
+			std::vector<std::string> GetShaders() const; 
 			~AssetManager();
-		private: 
-			void LoadAssetsFromDir();
-			void LoadObject();
-			std::string m_workingDir;
-			std::string m_contentDir; 
-			std::string m_shadersDir; 
-			std::string m_texturesDir;
-			std::string m_objectsDir;
-			std::string m_materialsDir;
+		private:
+			void LoadAssetsFromDir(const std::string& dirPath);
+			void LoadShader(const std::string& shaderPath);
+			void LoadObj(const std::string& objPath);
+			void CheckOrCreateDir(const std::string& dirPath);
+			void CheckOrCreateDirs(const std::vector<std::string>& dirPaths);
+			Directories m_dirs; 
 			std::vector<std::string> m_shaders;
 		};
 	}
