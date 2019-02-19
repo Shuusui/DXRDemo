@@ -34,8 +34,8 @@ namespace Util
 			~AssetManager();
 		private:
 			void LoadAssetsFromDir(const std::string& dirPath);
-			void LoadShader(const std::string& shaderPath);
-			void LoadObj(const std::string& objPath);
+			void LoadShader(const std::wstring& shaderPath);
+			void LoadObj(const std::wstring& objPath);
 			void CheckOrCreateDir(const std::string& dirPath);
 			void CheckOrCreateDirs(const std::vector<std::string>& dirPaths);
 			Directories m_dirs; 

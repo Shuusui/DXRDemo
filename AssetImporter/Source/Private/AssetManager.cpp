@@ -2,6 +2,10 @@
 #include "shlwapi.h"
 #include <filesystem>
 #include <fstream>
+#include <DirectXMath.h>
+#include <DirectXPackedVector.h>
+#include "WaveFrontReader.h"
+#include "DirectXMesh.h"
 
 Util::AssetImporter::AssetManager::AssetManager()
 {
@@ -50,8 +54,8 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir(const std::string& dir
 {
 	for (const auto& file : std::filesystem::directory_iterator(dirPath))
 	{
-		std::string filePath = file.path().string();
-		std::string extension = PathFindExtension(filePath.c_str());		
+		std::wstring filePath = file.path().wstring();
+		std::string extension = PathFindExtension(file.path().string().c_str());		
 		if (extension == ".hlsl")
 		{
 			LoadShader(filePath);
@@ -64,7 +68,7 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir(const std::string& dir
 	}
 }
 
-void Util::AssetImporter::AssetManager::LoadShader(const std::string & shaderPath)
+void Util::AssetImporter::AssetManager::LoadShader(const std::wstring & shaderPath)
 {
 	std::fstream shader{ shaderPath, std::ios::in | std::ios::ate };
 	if (shader.is_open())
@@ -79,13 +83,10 @@ void Util::AssetImporter::AssetManager::LoadShader(const std::string & shaderPat
 	}
 }
 
-void Util::AssetImporter::AssetManager::LoadObj(const std::string & objPath)
+void Util::AssetImporter::AssetManager::LoadObj(const std::wstring & objPath)
 {
-	std::fstream obj{ objPath, std::ios::in | std::ios::ate };
-	if (obj.is_open())
-	{
-
-	}
+	WaveFrontReader<int>* wfReader = new WaveFrontReader<int>();
+	wfReader->Load(objPath.c_str());
 }
 
 void Util::AssetImporter::AssetManager::CheckOrCreateDir(const std::string & dirPath)
