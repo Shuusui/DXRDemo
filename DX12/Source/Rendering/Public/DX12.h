@@ -19,7 +19,9 @@ namespace Rendering
 		DX12();
 		~DX12();
 		void Init();
-		void LoadAssets(); 
+		void OnRender();
+		void OnDestroy();
+		void LoadShader(const std::vector<std::wstring>& shaderPaths);
 	private: 
 
 		struct Vertex
