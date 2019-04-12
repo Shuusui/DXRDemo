@@ -248,12 +248,3 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 		WaitForPreviousFrame();
 	}
 }
-
-void Rendering::DX12::CompileShader(const std::string & shaderStr)
-{
-
-}
-
-void Rendering::DX12::OnRender()
-{
-	PopulateCommandList(); 
