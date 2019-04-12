@@ -3,6 +3,7 @@
 #pragma region Includes
 #include <string>
 #include "d3dx12.h"
+#include <stdexcept>
 #pragma endregion
 
 namespace Rendering

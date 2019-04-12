@@ -18,7 +18,7 @@ namespace Util
 			{
 
 			}
-			HWND WndHandle;
+			HWND WndHandle = {};
 			const unsigned short Width;
 			const unsigned short Height;
 		};
@@ -32,7 +32,7 @@ namespace Util
 			}
 			const unsigned short Width;
 			const unsigned short Height;
-			HINSTANCE HInstance;
+			HINSTANCE HInstance = {};
 			int NCmdShow;
 		};
 		struct SHARED_STRUCTS_API  SWindowClassParams

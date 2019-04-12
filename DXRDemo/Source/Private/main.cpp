@@ -4,6 +4,7 @@
 #include "SharedMacros.h"
 #include "WindowManager.h"
 #include "SharedStructs.h"
+#include "AssetManager.h"
 #pragma endregion
 
 
@@ -29,14 +30,19 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	Rendering::DX12* dx12 = new Rendering::DX12(wndParams);
 	dx12->Init();
 
+	UtAI::AssetManager::Create();
+	UtAI::AssetManager* assetManager = UtAI::AssetManager::GetHandle();
+	assetManager->Init();
+	dx12->LoadShader(assetManager->GetShaderPaths());
+
 	MSG msg = {};
 
 	while (msg.message != WM_QUIT)
 	{
-		dx12->OnRender();
 		Rendering::Window::WindowManager::RunWindow(wndParams.WndHandle, msg);
+		dx12->OnRender();
 	}
 	dx12->OnDestroy();
 	delete(dx12);
-	return msg.wParam;
+	return static_cast<int>(msg.wParam);
 }

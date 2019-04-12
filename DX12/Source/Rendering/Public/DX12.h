@@ -22,6 +22,7 @@ namespace Rendering
 		void Init();
 		void OnRender();
 		void OnDestroy();
+		void LoadShader(const std::vector<std::wstring>& shaderPaths);
 	private: 
 		UtilRen::SWindowParams m_wndParams;
 
@@ -59,5 +60,6 @@ namespace Rendering
 		void PopulateCommandList(); 
 		void WaitForPreviousFrame();
 		void LoadAssets(); 
+		void CompileShader(const std::string& shaderStr);
 	};
 }

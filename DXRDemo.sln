@@ -7,6 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXRDemo", "DXRDemo\DXRDemo.
 	ProjectSection(ProjectDependencies) = postProject
 		{08FDC61F-E5A2-4FC6-A112-BCE01C293C69} = {08FDC61F-E5A2-4FC6-A112-BCE01C293C69}
 		{F243CD51-664B-455B-B9D1-539610AE1537} = {F243CD51-664B-455B-B9D1-539610AE1537}
+		{C7D132EB-29E8-4644-8751-3E0246AB8241} = {C7D132EB-29E8-4644-8751-3E0246AB8241}
 		{C5D83BEF-8085-4163-9204-CD79DA119E9B} = {C5D83BEF-8085-4163-9204-CD79DA119E9B}
 	EndProjectSection
 EndProject
@@ -26,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shader", "Shader", "{690065
 	ProjectSection(SolutionItems) = preProject
 		Shaders\shaders.hlsl = Shaders\shaders.hlsl
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssetImporter", "AssetImporter\AssetImporter.vcxproj", "{C7D132EB-29E8-4644-8751-3E0246AB8241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +70,14 @@ Global
 		{08FDC61F-E5A2-4FC6-A112-BCE01C293C69}.Release|x64.Build.0 = Release|x64
 		{08FDC61F-E5A2-4FC6-A112-BCE01C293C69}.Release|x86.ActiveCfg = Release|Win32
 		{08FDC61F-E5A2-4FC6-A112-BCE01C293C69}.Release|x86.Build.0 = Release|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x64.ActiveCfg = Debug|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x64.Build.0 = Debug|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x86.ActiveCfg = Debug|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x86.Build.0 = Debug|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x64.ActiveCfg = Release|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x64.Build.0 = Release|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x86.ActiveCfg = Release|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
