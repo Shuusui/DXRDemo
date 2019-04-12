@@ -18,7 +18,11 @@ namespace Util
 			{
 
 			}
+<<<<<<< Updated upstream
 			HWND WndHandle;
+=======
+			HWND WndHandle = {};
+>>>>>>> Stashed changes
 			const unsigned short Width;
 			const unsigned short Height;
 		};
@@ -32,7 +36,11 @@ namespace Util
 			}
 			const unsigned short Width;
 			const unsigned short Height;
+<<<<<<< Updated upstream
 			HINSTANCE HInstance;
+=======
+			HINSTANCE HInstance = {};
+>>>>>>> Stashed changes
 			int NCmdShow;
 		};
 		struct SHARED_STRUCTS_API  SWindowClassParams
