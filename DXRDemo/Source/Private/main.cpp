@@ -30,9 +30,10 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	Rendering::DX12* dx12 = new Rendering::DX12(wndParams);
 	dx12->Init();
 
-	UtAI::AssetManager* assetManager = new UtAI::AssetManager();
+	UtAI::AssetManager::Create();
+	UtAI::AssetManager* assetManager = UtAI::AssetManager::GetHandle();
 	assetManager->Init();
-	assetManager->ImportAsset("shaders.hlsl");
+	dx12->LoadShader(assetManager->GetShaderPaths());
 
 	MSG msg = {};
 
@@ -43,5 +44,5 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	}
 	dx12->OnDestroy();
 	delete(dx12);
-	return msg.wParam;
+	return static_cast<int>(msg.wParam);
 }
