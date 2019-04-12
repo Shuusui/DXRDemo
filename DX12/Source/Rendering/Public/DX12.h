@@ -5,26 +5,28 @@
 #include "dxgi.h"
 #include "dxgi1_4.h"
 #include "directxmath.h"
+#include "SharedStructs.h"
 #pragma endregion
 
-
+#define DX12_API __declspec(dllexport)
 
 namespace Rendering
 {
 	namespace MSWRL = Microsoft::WRL; 
-	class DX12
+	class DX12_API DX12
 	{
-	public: 
-
-		DX12();
+	public:
+		DX12() = delete; 
+		DX12(const UtilRen::SWindowParams& wndCreationParams);
 		~DX12();
 		void Init();
 		void OnRender();
 		void OnDestroy();
 		void LoadShader(const std::vector<std::wstring>& shaderPaths);
 	private: 
+		UtilRen::SWindowParams m_wndParams;
 
-		struct Vertex
+		struct SVertex
 		{
 			DirectX::XMFLOAT3 position; 
 			DirectX::XMFLOAT4 color; 
@@ -41,8 +43,9 @@ namespace Rendering
 		MSWRL::ComPtr<ID3D12Resource> m_renderTargets[FrameCount]; 
 		MSWRL::ComPtr<ID3D12CommandAllocator> m_commandAllocator; 
 		MSWRL::ComPtr<ID3D12RootSignature> m_rootSignature; 
-		D3D12_VIEWPORT m_viewport;
-		D3D12_RECT m_scissorRect; 
+		CD3DX12_VIEWPORT m_viewport;
+		CD3DX12_RECT m_scissorRect;
+		float m_aspectRatio;
 		UINT m_rtvDescriptorSize;
 
 		//App resources
@@ -54,9 +57,9 @@ namespace Rendering
 		HANDLE m_fenceEvent; 
 		MSWRL::ComPtr<ID3D12Fence> m_fence;
 		UINT64 m_fenceValue; 
-
 		void PopulateCommandList(); 
 		void WaitForPreviousFrame();
-		void OnDestroy();
+		void LoadAssets(); 
+		void CompileShader(const std::string& shaderStr);
 	};
 }

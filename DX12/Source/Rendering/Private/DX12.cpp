@@ -1,12 +1,17 @@
-#include "..\header\DX12.h"
+#include "..\Public\DX12.h"
+#include "..\Public\DX12Helper.h"
 #include "winerror.h"
-#include "..\header\DX12Helper.h"
 #if defined (_DEBUG)
 #include "D3DCompiler.h"
 #endif
 
-Rendering::DX12::DX12()
+Rendering::DX12::DX12(const UtilRen::SWindowParams& wndParams)
+	:m_wndParams(wndParams)
+	, m_viewport(0.0f, 0.0f, static_cast<float>(wndParams.Width), static_cast<float>(wndParams.Height))
+	, m_scissorRect(0, 0, static_cast<LONG>(wndParams.Width), static_cast<LONG>(wndParams.Height))
 {
+	m_aspectRatio = static_cast<float>(wndParams.Width) / static_cast<float>(wndParams.Height);
+
 }
 
 Rendering::DX12::~DX12()
@@ -45,14 +50,14 @@ void Rendering::DX12::Init()
 
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {}; 
 	swapChainDesc.BufferCount = FrameCount; 
-	swapChainDesc.BufferDesc.Width = 1920; 
-	swapChainDesc.BufferDesc.Height = 1080; 
+	swapChainDesc.BufferDesc.Width = m_wndParams.Width;
+	swapChainDesc.BufferDesc.Height = m_wndParams.Height;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; 
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; 
-	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; 
-	swapChainDesc.OutputWindow; //TODO: Add output window here
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; 
+	swapChainDesc.OutputWindow = m_wndParams.WndHandle;
 	swapChainDesc.SampleDesc.Count = 1; 
-	swapChainDesc.Windowed = FALSE; 
+	swapChainDesc.Windowed = TRUE; 
 
 	MSWRL::ComPtr<IDXGISwapChain> swapChain; 
 	ThrowIfFailed(
@@ -204,11 +209,11 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 	ThrowIfFailed(m_commandList->Close());
 
 	{
-		Vertex triangleVertices[] =
+		SVertex triangleVertices[] =
 		{
-			{{0.0f, 0.25f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-			{{0.25f, -0.25f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
-			{{-0.25f, -0.25f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
+			{{0.0f, 0.25f * m_aspectRatio, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+			{{0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+			{{-0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
 		};
 		const UINT vertexBufferSize = sizeof(triangleVertices);
 
@@ -228,7 +233,7 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 		m_vertexBuffer->Unmap(0, nullptr);
 
 		m_vertexBufferView.BufferLocation = m_vertexBuffer->GetGPUVirtualAddress();
-		m_vertexBufferView.StrideInBytes = sizeof(Vertex);
+		m_vertexBufferView.StrideInBytes = sizeof(SVertex);
 		m_vertexBufferView.SizeInBytes = vertexBufferSize;
 	}
 	{
@@ -243,12 +248,3 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 		WaitForPreviousFrame();
 	}
 }
-
-void Rendering::DX12::CompileShader(const std::string & shaderStr)
-{
-
-}
-
-void Rendering::DX12::OnRender()
-{
-	PopulateCommandList(); 
