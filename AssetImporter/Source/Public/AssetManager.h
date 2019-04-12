@@ -16,11 +16,15 @@ namespace Util
 		class ASSET_IMPORTER_API AssetManager
 		{
 		public:
-			AssetManager(); 
+			static void Create(); 
+			static AssetManager* GetHandle(); 
+			static void Shutdown();
+
 			void Init();
-			void ImportAsset(const std::string& fileName);
+			std::vector<std::wstring> GetShaderPaths() const; 
 			~AssetManager();
 		private: 
+			AssetManager();
 			void LoadAssetsFromDir();
 			void LoadObject();
 			std::string m_workingDir;
@@ -29,7 +33,8 @@ namespace Util
 			std::string m_texturesDir;
 			std::string m_objectsDir;
 			std::string m_materialsDir;
-			std::vector<std::string> m_shaders;
+			std::vector<std::wstring> m_shaderPaths;
+			static AssetManager* s_assetManagerHandle;
 		};
 	}
 }

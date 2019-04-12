@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <fstream>
 
+Util::AssetImporter::AssetManager* Util::AssetImporter::AssetManager::s_assetManagerHandle = nullptr;
+
 Util::AssetImporter::AssetManager::AssetManager()
 {
 	DWORD bufferLength = MAX_PATH;
@@ -11,7 +13,7 @@ Util::AssetImporter::AssetManager::AssetManager()
 	m_workingDir = currentDirectory;
 	m_contentDir = m_workingDir + "\\Content\\";
 	m_texturesDir = m_contentDir + "\\Textures\\";
-	m_objectsDir = m_contentDir + "\\Objects\\"; 
+	m_objectsDir = m_contentDir + "\\Objects\\";
 	m_materialsDir = m_contentDir + "\\Materials\\";
 	m_shadersDir = m_contentDir + "\\Shaders\\";
 }
@@ -21,9 +23,28 @@ void Util::AssetImporter::AssetManager::Init()
 	LoadAssetsFromDir();
 }
 
-void Util::AssetImporter::AssetManager::ImportAsset(const std::string & fileName)
+std::vector<std::wstring> Util::AssetImporter::AssetManager::GetShaderPaths() const
 {
-	
+	return m_shaderPaths;
+}
+
+void Util::AssetImporter::AssetManager::Create()
+{
+	if (!s_assetManagerHandle)
+	{
+		s_assetManagerHandle = new Util::AssetImporter::AssetManager();
+	}
+}
+
+Util::AssetImporter::AssetManager * Util::AssetImporter::AssetManager::GetHandle()
+{
+	return s_assetManagerHandle;
+}
+
+void Util::AssetImporter::AssetManager::Shutdown()
+{
+	delete s_assetManagerHandle; 
+	s_assetManagerHandle = nullptr;
 }
 
 Util::AssetImporter::AssetManager::~AssetManager()
@@ -38,22 +59,12 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
 		std::string extension = PathFindExtension(filePath.c_str());		
 		if (extension == ".hlsl")
 		{
-			std::fstream shader{ filePath, std::ios::in |std::ios::ate};
-			if (shader.is_open())
-			{
-				std::string shaderStr;
-				std::streampos size = shader.tellg();
-				shaderStr.resize(size);
-				shader.seekg(0, std::ios::beg);
-				shader.read(shaderStr.data(), size);
-				shader.close();
-				m_shaders.push_back(shaderStr);
-			}
+			m_shaderPaths.push_back(file.path().wstring());
 		}
-		
 	}
 }
 
 void Util::AssetImporter::AssetManager::LoadObject()
 {
+
 }
