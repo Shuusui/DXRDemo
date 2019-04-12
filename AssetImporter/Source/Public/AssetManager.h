@@ -13,6 +13,16 @@ namespace Util
 {
 	namespace AssetImporter
 	{
+
+		struct ASSET_IMPORTER_API Directories
+		{
+			std::string WorkingDir;
+			std::string ContentDir;
+			std::string ShadersDir;
+			std::string TexturesDir;
+			std::string ObjectsDir;
+			std::string MaterialsDir;
+		};
 		class ASSET_IMPORTER_API AssetManager
 		{
 		public:

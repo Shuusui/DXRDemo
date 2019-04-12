@@ -20,7 +20,12 @@ Util::AssetImporter::AssetManager::AssetManager()
 
 void Util::AssetImporter::AssetManager::Init()
 {
-	LoadAssetsFromDir();
+	std::vector<std::string> tempDirPaths = { m_dirs.MaterialsDir, m_dirs.ObjectsDir, m_dirs.ShadersDir, m_dirs.TexturesDir};
+	CheckOrCreateDirs(tempDirPaths);
+	for (std::string& tempDir : tempDirPaths)
+	{
+		LoadAssetsFromDir(tempDir);
+	}
 }
 
 std::vector<std::wstring> Util::AssetImporter::AssetManager::GetShaderPaths() const
@@ -51,9 +56,9 @@ Util::AssetImporter::AssetManager::~AssetManager()
 {
 }
 
-void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
+void Util::AssetImporter::AssetManager::LoadAssetsFromDir(const std::string& dirPath)
 {
-	for (const auto& file : std::filesystem::directory_iterator(m_shadersDir))
+	for (const auto& file : std::filesystem::directory_iterator(dirPath))
 	{
 		std::string filePath = file.path().string();
 		std::string extension = PathFindExtension(filePath.c_str());		
@@ -64,7 +69,33 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
 	}
 }
 
-void Util::AssetImporter::AssetManager::LoadObject()
+void Util::AssetImporter::AssetManager::LoadShader(const std::string & shaderPath)
 {
 
 }
+
+void Util::AssetImporter::AssetManager::LoadObj(const std::string & objPath)
+{
+	std::fstream obj{ objPath, std::ios::in | std::ios::ate };
+	if (obj.is_open())
+	{
+
+	}
+}
+
+void Util::AssetImporter::AssetManager::CheckOrCreateDir(const std::string & dirPath)
+{
+	if (!std::filesystem::exists(dirPath))
+	{
+		std::filesystem::create_directory(dirPath);
+	}
+}
+
+void Util::AssetImporter::AssetManager::CheckOrCreateDirs(const std::vector<std::string>& dirPaths)
+{
+	for (const std::string& path : dirPaths)
+	{
+		CheckOrCreateDir(path);
+	}
+}
+

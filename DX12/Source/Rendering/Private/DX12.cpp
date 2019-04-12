@@ -186,6 +186,11 @@ void Rendering::DX12::LoadAssets()
 	}
 }
 
+void Rendering::DX12::CompileShader(const std::string & shaderStr)
+{
+
+}
+
 void Rendering::DX12::OnRender()
 {
 	PopulateCommandList(); 

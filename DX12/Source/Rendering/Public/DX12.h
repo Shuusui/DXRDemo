@@ -59,5 +59,6 @@ namespace Rendering
 		void PopulateCommandList(); 
 		void WaitForPreviousFrame();
 		void LoadAssets(); 
+		void CompileShader(const std::string& shaderStr);
 	};
 }
