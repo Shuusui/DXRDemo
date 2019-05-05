@@ -1,9 +1,9 @@
 #include "..\Public\DX12.h"
 #include "..\Public\DX12Helper.h"
 #include "winerror.h"
-#if defined (_DEBUG)
+//#if defined (_DEBUG)
 #include "D3DCompiler.h"
-#endif
+//#endif
 
 Rendering::DX12::DX12(const UtilRen::SWindowParams& wndParams)
 	:m_wndParams(wndParams)

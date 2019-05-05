@@ -3,14 +3,14 @@
 #pragma region Includes
 #include <string>
 #include <vector>
+#include "Defines.h"
 #pragma endregion //Includes
-
-#define ASSET_IMPORTER_API __declspec(dllexport)
-
 
 
 namespace Util
 {
+	
+
 	namespace AssetImporter
 	{
 		class ASSET_IMPORTER_API AssetManager
@@ -26,7 +26,8 @@ namespace Util
 		private:
 			AssetManager();
 			void LoadAssetsFromDir();
-			void LoadObject();
+			void LoadObject(const std::string& filePath);
+			void LoadMtl(const std::string& filePath);
 			std::string m_workingDir;
 			std::string m_contentDir;
 			std::string m_shadersDir;

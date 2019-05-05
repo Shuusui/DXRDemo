@@ -2,6 +2,8 @@
 #include "shlwapi.h"
 #include <filesystem>
 #include <fstream>
+#include "../Public/ObjReader.h"
+#include "../Public/AssetStructs.h"
 
 Util::AssetImporter::AssetManager* Util::AssetImporter::AssetManager::s_assetManagerHandle = nullptr;
 
@@ -11,7 +13,7 @@ Util::AssetImporter::AssetManager::AssetManager()
 	char currentDirectory[MAX_PATH + 1];
 	DWORD dirPathLength = GetCurrentDirectory(bufferLength, currentDirectory);
 	m_workingDir = currentDirectory;
-	m_contentDir = m_workingDir + "\\Content\\";
+	m_contentDir = m_workingDir + "\\Content";
 	m_texturesDir = m_contentDir + "\\Textures\\";
 	m_objectsDir = m_contentDir + "\\Objects\\";
 	m_materialsDir = m_contentDir + "\\Materials\\";
@@ -32,7 +34,7 @@ void Util::AssetImporter::AssetManager::Create()
 {
 	if (!s_assetManagerHandle)
 	{
-		s_assetManagerHandle = new Util::AssetImporter::AssetManager();
+ 		s_assetManagerHandle = new ::Util::AssetImporter::AssetManager();
 	}
 }
 
@@ -49,6 +51,7 @@ void Util::AssetImporter::AssetManager::Shutdown()
 
 Util::AssetImporter::AssetManager::~AssetManager()
 {
+
 }
 
 void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
@@ -62,9 +65,33 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
 			m_shaderPaths.push_back(file.path().wstring());
 		}
 	}
+	for (const auto& file : std::filesystem::directory_iterator(m_objectsDir))
+	{
+		std::string filePath = file.path().string();
+		std::string extension = PathFindExtension(filePath.c_str());
+		if (extension == ".obj")
+		{
+			LoadObject(filePath);
+		}
+		
+	}
+	for (const auto& file : std::filesystem::directory_iterator(m_materialsDir))
+	{
+		std::string filePath = file.path().string();
+		std::string extension = PathFindExtension(filePath.c_str());
+		if (extension == ".mtl")
+		{
+			LoadMtl(filePath);
+		}
+	}
 }
 
-void Util::AssetImporter::AssetManager::LoadObject()
+void Util::AssetImporter::AssetManager::LoadObject(const std::string& filePath)
 {
+	::Util::Util::Mesh mesh = ::Util::Util::ObjReader::ReadObjFile(filePath);
+}
 
+void Util::AssetImporter::AssetManager::LoadMtl(const std::string& filePath)
+{
+	::Util::Util::ObjReader::ReadMtlFile(filePath);
 }

@@ -27,6 +27,7 @@ namespace Util
 			SWindowCreationParams(const EResolution& res)
 				:Width(GetResolution(res).Width)
 				,Height(GetResolution(res).Height)
+				,NCmdShow(-1)
 			{
 
 			}
