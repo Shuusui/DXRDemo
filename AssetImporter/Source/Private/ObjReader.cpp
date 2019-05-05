@@ -92,6 +92,7 @@ void Util::Util::ObjReader::ReadMtlFile(const std::string& filePath)
 				}
 				materials.push_back(material);
 				material = {};
+				material.Name = line.substr(7, line.size() - 7);
 				break;
 			case 'K':
 				switch (line[1])
@@ -125,12 +126,27 @@ void Util::Util::ObjReader::ReadMtlFile(const std::string& filePath)
 					material.Dissolve.Value = atof(line.substr(8, line.size() - 8).c_str());
 					break;
 				}
-				material.Dissolve.Value = atof(line.substr(3, line.size() - 3).c_str());
+				material.Dissolve.Value = atof(line.substr(2, line.size() - 2).c_str());
 				break;
 			case 'i':
 				material.Illum = atoi(line.substr(6, line.size() - 6).c_str());
 				break;
+			case 'm':
+				switch (line[4])
+				{
+				case 'K':
+					switch (line[5])
+					{
+					case 'd':
+						material.DiffuseMapTexture = 
+					}
+					break;
+				}
 			}
+		}
+		if (!material.Name.empty())
+		{
+			materials.push_back(material);
 		}
 		mtlFile.close();
 	}
@@ -340,4 +356,57 @@ Util::Util::ColorRGB Util::Util::ObjReader::FillColorStruct(const std::string& c
 	}
 	color.B = atof(tempStr.c_str());
 	return color;
+}
+
+Util::Util::ColorTextureOptions Util::Util::ObjReader::FillColorTextureMapStruct(const std::string& colorMapString)
+{
+	ColorTextureOptions colorOption = {};
+	for (int i = 0; i < colorMapString.size(); i++)
+	{
+		if (colorMapString[i] == '-')
+		{
+			std::string tempStr = {};
+			switch (colorMapString[i + 1])
+			{
+			case 's':
+			{
+				tempStr = colorMapString.substr(i + 1, colorMapString.size() - (i + 1));
+				std::string scaleStr = {};
+				uint8_t scaleIndex = 0;
+				for (const char& c : tempStr)
+				{
+					if (!isspace(c))
+					{
+						scaleStr.push_back(c);
+						continue;
+					}
+					switch (scaleIndex)
+					{
+					case 0:
+						colorOption.ScaleApply.S = atof(scaleStr.c_str());
+						break;
+					case 1:
+						colorOption.ScaleApply.U = atof(scaleStr.c_str());
+						break;
+					case 2: 
+						colorOption.ScaleApply.V = atof(scaleStr.c_str());
+						break;
+					}
+					scaleIndex++;
+					scaleStr.clear();
+				}
+				switch (scaleIndex)
+				{
+				case 2:
+					colorOption.ScaleApply.V = atof(scaleStr.c_str());
+					break;
+				case 3:
+					colorOption.ScaleApply.W = atof(scaleStr.c_str());
+					break;
+				}
+			}
+				break;
+			}
+		}
+	}
 }

@@ -23,6 +23,7 @@ namespace Util
 			static struct Face FillFaceStruct(const std::string& faceString);
 			static struct SpaceVertex FillSpaceVertexStruct(const std::string& spaceVertexString);
 			static struct ColorRGB FillColorStruct(const std::string& colorString);
+			static struct ColorTextureOptions FillColorTextureMapStruct(const std::string& colorMapString);
 		};
 	}
 }
