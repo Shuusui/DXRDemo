@@ -138,7 +138,8 @@ void Util::Util::ObjReader::ReadMtlFile(const std::string& filePath)
 					switch (line[5])
 					{
 					case 'd':
-						material.DiffuseMapTexture = 
+						material.DiffuseMapTexture = FillColorTextureMapStruct(line.substr(6, line.size() - 6));
+						break;
 					}
 					break;
 				}
@@ -361,7 +362,7 @@ Util::Util::ColorRGB Util::Util::ObjReader::FillColorStruct(const std::string& c
 Util::Util::ColorTextureOptions Util::Util::ObjReader::FillColorTextureMapStruct(const std::string& colorMapString)
 {
 	ColorTextureOptions colorOption = {};
-	for (int i = 0; i < colorMapString.size(); i++)
+	for (size_t i = 0; i < colorMapString.size(); i++)
 	{
 		if (colorMapString[i] == '-')
 		{
@@ -370,7 +371,7 @@ Util::Util::ColorTextureOptions Util::Util::ObjReader::FillColorTextureMapStruct
 			{
 			case 's':
 			{
-				tempStr = colorMapString.substr(i + 1, colorMapString.size() - (i + 1));
+				tempStr = colorMapString.substr(i + 2, colorMapString.size() - (i + 2));
 				std::string scaleStr = {};
 				uint8_t scaleIndex = 0;
 				for (const char& c : tempStr)
@@ -407,6 +408,10 @@ Util::Util::ColorTextureOptions Util::Util::ObjReader::FillColorTextureMapStruct
 			}
 				break;
 			}
+			continue;
 		}
+		colorOption.TextureName = colorMapString.substr(i, colorMapString.size() - i);
+		break;
 	}
+	return colorOption;
 }
