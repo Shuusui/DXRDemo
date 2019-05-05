@@ -20,12 +20,7 @@ Util::AssetImporter::AssetManager::AssetManager()
 
 void Util::AssetImporter::AssetManager::Init()
 {
-	std::vector<std::string> tempDirPaths = { m_dirs.MaterialsDir, m_dirs.ObjectsDir, m_dirs.ShadersDir, m_dirs.TexturesDir};
-	CheckOrCreateDirs(tempDirPaths);
-	for (std::string& tempDir : tempDirPaths)
-	{
-		LoadAssetsFromDir(tempDir);
-	}
+	LoadAssetsFromDir();
 }
 
 std::vector<std::wstring> Util::AssetImporter::AssetManager::GetShaderPaths() const
@@ -41,14 +36,14 @@ void Util::AssetImporter::AssetManager::Create()
 	}
 }
 
-Util::AssetImporter::AssetManager * Util::AssetImporter::AssetManager::GetHandle()
+Util::AssetImporter::AssetManager* Util::AssetImporter::AssetManager::GetHandle()
 {
 	return s_assetManagerHandle;
 }
 
 void Util::AssetImporter::AssetManager::Shutdown()
 {
-	delete s_assetManagerHandle; 
+	delete s_assetManagerHandle;
 	s_assetManagerHandle = nullptr;
 }
 
@@ -56,12 +51,12 @@ Util::AssetImporter::AssetManager::~AssetManager()
 {
 }
 
-void Util::AssetImporter::AssetManager::LoadAssetsFromDir(const std::string& dirPath)
+void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
 {
-	for (const auto& file : std::filesystem::directory_iterator(dirPath))
+	for (const auto& file : std::filesystem::directory_iterator(m_shadersDir))
 	{
 		std::string filePath = file.path().string();
-		std::string extension = PathFindExtension(filePath.c_str());		
+		std::string extension = PathFindExtension(filePath.c_str());
 		if (extension == ".hlsl")
 		{
 			m_shaderPaths.push_back(file.path().wstring());
@@ -69,33 +64,7 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir(const std::string& dir
 	}
 }
 
-void Util::AssetImporter::AssetManager::LoadShader(const std::string & shaderPath)
+void Util::AssetImporter::AssetManager::LoadObject()
 {
 
 }
-
-void Util::AssetImporter::AssetManager::LoadObj(const std::string & objPath)
-{
-	std::fstream obj{ objPath, std::ios::in | std::ios::ate };
-	if (obj.is_open())
-	{
-
-	}
-}
-
-void Util::AssetImporter::AssetManager::CheckOrCreateDir(const std::string & dirPath)
-{
-	if (!std::filesystem::exists(dirPath))
-	{
-		std::filesystem::create_directory(dirPath);
-	}
-}
-
-void Util::AssetImporter::AssetManager::CheckOrCreateDirs(const std::vector<std::string>& dirPaths)
-{
-	for (const std::string& path : dirPaths)
-	{
-		CheckOrCreateDir(path);
-	}
-}
-
