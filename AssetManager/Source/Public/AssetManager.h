@@ -11,9 +11,9 @@
 
 namespace Util
 {
-	namespace AssetImporter
+	namespace AssetManager
 	{
-		class ASSET_IMPORTER_API AssetManager
+		class ASSET_MANAGER_API AssetManager
 		{
 		public:
 			static void Create();
@@ -41,4 +41,4 @@ namespace Util
 		};
 	}
 }
-namespace UtAI = ::Util::AssetImporter;
+namespace UtAI = ::Util::AssetManager;

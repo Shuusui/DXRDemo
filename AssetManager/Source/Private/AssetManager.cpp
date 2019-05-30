@@ -4,9 +4,9 @@
 #include <fstream>
 #include "ObjReader.h"
 
-Util::AssetImporter::AssetManager* Util::AssetImporter::AssetManager::s_assetManagerHandle = nullptr;
+Util::AssetManager::AssetManager* Util::AssetManager::AssetManager::s_assetManagerHandle = nullptr;
 
-Util::AssetImporter::AssetManager::AssetManager()
+Util::AssetManager::AssetManager::AssetManager()
 {
 	DWORD bufferLength = MAX_PATH;
 	char currentDirectory[MAX_PATH + 1];
@@ -19,46 +19,46 @@ Util::AssetImporter::AssetManager::AssetManager()
 	m_shadersDir = m_contentDir + "\\Shaders\\";
 }
 
-void Util::AssetImporter::AssetManager::Init()
+void Util::AssetManager::AssetManager::Init()
 {
 	LoadAssetsFromDir();
 }
 
-std::vector<std::wstring> Util::AssetImporter::AssetManager::GetShaderPaths() const
+std::vector<std::wstring> Util::AssetManager::AssetManager::GetShaderPaths() const
 {
 	return m_shaderPaths;
 }
 
-std::vector<::Util::Util::SMesh> Util::AssetImporter::AssetManager::GetMeshes() const
+std::vector<::Util::Util::SMesh> Util::AssetManager::AssetManager::GetMeshes() const
 {
 	return m_loadedMeshes;
 }
 
-void Util::AssetImporter::AssetManager::Create()
+void Util::AssetManager::AssetManager::Create()
 {
 	if (!s_assetManagerHandle)
 	{
- 		s_assetManagerHandle = new ::Util::AssetImporter::AssetManager();
+ 		s_assetManagerHandle = new ::Util::AssetManager::AssetManager();
 	}
 }
 
-Util::AssetImporter::AssetManager* Util::AssetImporter::AssetManager::GetHandle()
+Util::AssetManager::AssetManager* Util::AssetManager::AssetManager::GetHandle()
 {
 	return s_assetManagerHandle;
 }
 
-void Util::AssetImporter::AssetManager::Shutdown()
+void Util::AssetManager::AssetManager::Shutdown()
 {
 	delete s_assetManagerHandle;
 	s_assetManagerHandle = nullptr;
 }
 
-Util::AssetImporter::AssetManager::~AssetManager()
+Util::AssetManager::AssetManager::~AssetManager()
 {
 
 }
 
-void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
+void Util::AssetManager::AssetManager::LoadAssetsFromDir()
 {
 	for (const auto& file : std::filesystem::directory_iterator(m_shadersDir))
 	{
@@ -90,12 +90,12 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
 	}
 }
 
-void Util::AssetImporter::AssetManager::LoadObject(const std::string& filePath)
+void Util::AssetManager::AssetManager::LoadObject(const std::string& filePath)
 {
 	m_loadedMeshes.push_back(::Util::Util::ObjReader::ReadObjFile(filePath));
 }
 
-void Util::AssetImporter::AssetManager::LoadMtl(const std::string& filePath)
+void Util::AssetManager::AssetManager::LoadMtl(const std::string& filePath)
 {
 	std::vector<::Util::Util::SMaterial> materials =  ::Util::Util::ObjReader::ReadMtlFile(filePath);
 }

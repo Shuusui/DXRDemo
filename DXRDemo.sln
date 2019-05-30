@@ -26,15 +26,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderingShared", "Renderin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shader", "Shader", "{69006506-5625-4F6E-B3D0-E2A9C261C518}"
 	ProjectSection(SolutionItems) = preProject
-		Shaders\shaders.hlsl = Shaders\shaders.hlsl
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssetImporter", "AssetImporter\AssetImporter.vcxproj", "{C7D132EB-29E8-4644-8751-3E0246AB8241}"
-	ProjectSection(ProjectDependencies) = postProject
-		{33C1B06B-C001-45A9-9D0D-8EFA885D4A36} = {33C1B06B-C001-45A9-9D0D-8EFA885D4A36}
+		DXRDemo\Content\Shaders\shaders.hlsl = DXRDemo\Content\Shaders\shaders.hlsl
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtilLib", "UtilLib\UtilLib.vcxproj", "{33C1B06B-C001-45A9-9D0D-8EFA885D4A36}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssetManager", "AssetManager\AssetManager.vcxproj", "{C7D132EB-29E8-4644-8751-3E0246AB8241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,14 +73,6 @@ Global
 		{08FDC61F-E5A2-4FC6-A112-BCE01C293C69}.Release|x64.Build.0 = Debug|x64
 		{08FDC61F-E5A2-4FC6-A112-BCE01C293C69}.Release|x86.ActiveCfg = Release|Win32
 		{08FDC61F-E5A2-4FC6-A112-BCE01C293C69}.Release|x86.Build.0 = Release|Win32
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x64.ActiveCfg = Debug|x64
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x64.Build.0 = Debug|x64
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x86.ActiveCfg = Debug|Win32
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x86.Build.0 = Debug|Win32
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x64.ActiveCfg = Debug|x64
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x64.Build.0 = Debug|x64
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x86.ActiveCfg = Release|Win32
-		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x86.Build.0 = Release|Win32
 		{33C1B06B-C001-45A9-9D0D-8EFA885D4A36}.Debug|x64.ActiveCfg = Debug|x64
 		{33C1B06B-C001-45A9-9D0D-8EFA885D4A36}.Debug|x64.Build.0 = Debug|x64
 		{33C1B06B-C001-45A9-9D0D-8EFA885D4A36}.Debug|x86.ActiveCfg = Debug|Win32
@@ -92,6 +81,14 @@ Global
 		{33C1B06B-C001-45A9-9D0D-8EFA885D4A36}.Release|x64.Build.0 = Release|x64
 		{33C1B06B-C001-45A9-9D0D-8EFA885D4A36}.Release|x86.ActiveCfg = Release|Win32
 		{33C1B06B-C001-45A9-9D0D-8EFA885D4A36}.Release|x86.Build.0 = Release|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x64.ActiveCfg = Debug|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x64.Build.0 = Debug|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x86.ActiveCfg = Debug|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Debug|x86.Build.0 = Debug|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x64.ActiveCfg = Release|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x64.Build.0 = Release|x64
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x86.ActiveCfg = Release|Win32
+		{C7D132EB-29E8-4644-8751-3E0246AB8241}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
