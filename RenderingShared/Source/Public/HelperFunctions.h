@@ -9,7 +9,7 @@ namespace Util
 {
 	namespace Rendering
 	{
-		struct SResolution
+		struct HELPER_FUNCTIONS_API SResolution
 		{
 			const unsigned short Width;
 			const unsigned short Height;

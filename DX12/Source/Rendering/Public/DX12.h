@@ -13,6 +13,7 @@
 namespace Rendering
 {
 	namespace MSWRL = Microsoft::WRL; 
+
 	class DX12_API DX12
 	{
 	public:
@@ -23,14 +24,9 @@ namespace Rendering
 		void OnRender();
 		void OnDestroy();
 		void LoadShader(const std::vector<std::wstring>& shaderPaths);
+		void LoadAssets(const std::vector<UtilRen::SVector4>& vertexPos); 
 	private: 
 		UtilRen::SWindowParams m_wndParams;
-
-		struct SVertex
-		{
-			DirectX::XMFLOAT3 position; 
-			DirectX::XMFLOAT4 color; 
-		};
 
 		static const UINT FrameCount = 2; 
 		//Pipeline objects
@@ -50,7 +46,8 @@ namespace Rendering
 
 		//App resources
 		MSWRL::ComPtr<ID3D12Resource> m_vertexBuffer;
-		D3D12_VERTEX_BUFFER_VIEW m_vertexBufferView; 
+		D3D12_VERTEX_BUFFER_VIEW m_vertexBufferView;
+		std::vector<UtilRen::SVertex> m_vertices;
 
 		//Synchronization objects
 		UINT m_frameIndex; 
@@ -59,7 +56,5 @@ namespace Rendering
 		UINT64 m_fenceValue; 
 		void PopulateCommandList(); 
 		void WaitForPreviousFrame();
-		void LoadAssets(); 
-		void CompileShader(const std::string& shaderStr);
 	};
 }
