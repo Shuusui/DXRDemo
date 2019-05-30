@@ -29,6 +29,11 @@ std::vector<std::wstring> Util::AssetImporter::AssetManager::GetShaderPaths() co
 	return m_shaderPaths;
 }
 
+std::vector<::Util::Util::SMesh> Util::AssetImporter::AssetManager::GetMeshes() const
+{
+	return m_loadedMeshes;
+}
+
 void Util::AssetImporter::AssetManager::Create()
 {
 	if (!s_assetManagerHandle)
@@ -87,7 +92,7 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
 
 void Util::AssetImporter::AssetManager::LoadObject(const std::string& filePath)
 {
-	::Util::Util::SMesh mesh = ::Util::Util::ObjReader::ReadObjFile(filePath);
+	m_loadedMeshes.push_back(::Util::Util::ObjReader::ReadObjFile(filePath));
 }
 
 void Util::AssetImporter::AssetManager::LoadMtl(const std::string& filePath)
