@@ -2,8 +2,7 @@
 #include "shlwapi.h"
 #include <filesystem>
 #include <fstream>
-#include "../Public/ObjReader.h"
-#include "../Public/AssetStructs.h"
+#include "ObjReader.h"
 
 Util::AssetImporter::AssetManager* Util::AssetImporter::AssetManager::s_assetManagerHandle = nullptr;
 
@@ -88,10 +87,10 @@ void Util::AssetImporter::AssetManager::LoadAssetsFromDir()
 
 void Util::AssetImporter::AssetManager::LoadObject(const std::string& filePath)
 {
-	::Util::Util::Mesh mesh = ::Util::Util::ObjReader::ReadObjFile(filePath);
+	::Util::Util::SMesh mesh = ::Util::Util::ObjReader::ReadObjFile(filePath);
 }
 
 void Util::AssetImporter::AssetManager::LoadMtl(const std::string& filePath)
 {
-	::Util::Util::ObjReader::ReadMtlFile(filePath);
+	std::vector<::Util::Util::SMaterial> materials =  ::Util::Util::ObjReader::ReadMtlFile(filePath);
 }

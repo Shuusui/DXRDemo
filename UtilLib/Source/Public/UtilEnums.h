@@ -1,7 +1,7 @@
 #pragma once
+#include "Defines.h"
 
-
-enum class EReflectionType
+enum class UTIL_LIB_API EReflectionType
 {
 	Sphere, 
 	Cube_Top, 

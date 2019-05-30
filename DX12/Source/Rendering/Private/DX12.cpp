@@ -175,7 +175,7 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 #else
 		UINT compileFlags = 0;
 #endif 
-		for (std::wstring shaderPath : shaderPaths)
+		for (const std::wstring& shaderPath : shaderPaths)
 		{
 			ThrowIfFailed(D3DCompileFromFile(shaderPath.c_str(), nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr)); 
 			ThrowIfFailed(D3DCompileFromFile(shaderPath.c_str(), nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));

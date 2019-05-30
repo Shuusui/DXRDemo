@@ -15,15 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Public\AssetManager.h">
+    <ClInclude Include="Source\Public\ObjReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Public\Defines.h">
+    <ClInclude Include="Source\Public\UtilStructs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\UtilEnums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Private\AssetManager.cpp">
+    <ClCompile Include="Source\Private\ObjReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
