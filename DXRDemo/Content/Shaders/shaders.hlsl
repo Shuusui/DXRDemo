@@ -2,7 +2,7 @@
 
 struct VSInput
 {
-	float3 Position : POSITION0;
+	float4 Position : POSITION0;
 	float4 Color :COLOR0;
 };
 struct VSOutput
@@ -15,7 +15,7 @@ struct VSOutput
 VSOutput VSMain(VSInput input)
 {
 	VSOutput output; 
-	output.Position = float4(input.Position,1);
+	output.Position = input.Position;
 	output.Color = input.Color; 
 	return output;
 }
