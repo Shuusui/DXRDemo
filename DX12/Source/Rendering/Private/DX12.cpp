@@ -9,8 +9,13 @@ Rendering::DX12::DX12(const UtilRen::SWindowParams& wndParams)
 	:m_wndParams(wndParams)
 	, m_viewport(0.0f, 0.0f, static_cast<float>(wndParams.Width), static_cast<float>(wndParams.Height))
 	, m_scissorRect(0, 0, static_cast<LONG>(wndParams.Width), static_cast<LONG>(wndParams.Height))
+	, m_aspectRatio(static_cast<float>(wndParams.Width) / static_cast<float>(wndParams.Height))
+	, m_rtvDescriptorSize(0)
+	, m_vertexBufferView(D3D12_VERTEX_BUFFER_VIEW{})
+	, m_frameIndex(0)
+	, m_fenceEvent(nullptr)
+	, m_fenceValue(0)
 {
-	m_aspectRatio = static_cast<float>(wndParams.Width) / static_cast<float>(wndParams.Height);
 
 }
 
@@ -57,7 +62,7 @@ void Rendering::DX12::Init()
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; 
 	swapChainDesc.OutputWindow = m_wndParams.WndHandle;
 	swapChainDesc.SampleDesc.Count = 1; 
-	swapChainDesc.Windowed = TRUE; 
+	swapChainDesc.Windowed = TRUE;
 
 	MSWRL::ComPtr<IDXGISwapChain> swapChain; 
 	ThrowIfFailed(
@@ -148,6 +153,17 @@ void Rendering::DX12::WaitForPreviousFrame()
 
 }
 
+void Rendering::DX12::LoadAssets(const std::vector<UtilRen::SVector4>& vertexPos)
+{
+	for (const UtilRen::SVector4& pos : vertexPos)
+	{
+		UtilRen::SVertex vertex = {};
+		vertex.Position = pos;
+		vertex.Color = { 1.0f, 0.0f, 0.0f, 1.0f };
+		m_vertices.push_back(vertex);
+	}
+}
+
 void Rendering::DX12::OnDestroy()
 {
 	WaitForPreviousFrame(); 
@@ -175,7 +191,7 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 #else
 		UINT compileFlags = 0;
 #endif 
-		for (std::wstring shaderPath : shaderPaths)
+		for (const std::wstring& shaderPath : shaderPaths)
 		{
 			ThrowIfFailed(D3DCompileFromFile(shaderPath.c_str(), nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr)); 
 			ThrowIfFailed(D3DCompileFromFile(shaderPath.c_str(), nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));
@@ -209,13 +225,13 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 	ThrowIfFailed(m_commandList->Close());
 
 	{
-		SVertex triangleVertices[] =
-		{
-			{{0.0f, 0.25f * m_aspectRatio, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-			{{0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
-			{{-0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
-		};
-		const UINT vertexBufferSize = sizeof(triangleVertices);
+		//UtilRen::SVertex triangleVertices[] =
+		//{
+		//	{{0.0f, 0.25f * m_aspectRatio, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+		//	{{0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+		//	{{-0.25f, -0.25f * m_aspectRatio, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
+		//};
+		const UINT vertexBufferSize = m_vertices.size();
 
 		ThrowIfFailed(m_device->CreateCommittedResource(
 			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
@@ -229,11 +245,11 @@ void Rendering::DX12::LoadShader(const std::vector<std::wstring>& shaderPaths)
 		CD3DX12_RANGE readRange(0, 0);
 
 		ThrowIfFailed(m_vertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin)));
-		memcpy(pVertexDataBegin, triangleVertices, sizeof(triangleVertices));
+		memcpy(pVertexDataBegin, m_vertices.data(), m_vertices.size());
 		m_vertexBuffer->Unmap(0, nullptr);
 
 		m_vertexBufferView.BufferLocation = m_vertexBuffer->GetGPUVirtualAddress();
-		m_vertexBufferView.StrideInBytes = sizeof(SVertex);
+		m_vertexBufferView.StrideInBytes = sizeof(UtilRen::SVertex);
 		m_vertexBufferView.SizeInBytes = vertexBufferSize;
 	}
 	{

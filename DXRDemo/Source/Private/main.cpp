@@ -33,8 +33,18 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	UtAI::AssetManager::Create();
 	UtAI::AssetManager* assetManager = UtAI::AssetManager::GetHandle();
 	assetManager->Init();
+	std::vector<Util::Util::SMesh> meshes = assetManager->GetMeshes();
+	std::vector<UtilRen::SVector4> positions = {};
+	for (const Util::Util::SMesh& mesh : meshes)
+	{
+		for (const Util::Util::SVertex& vertex : mesh.Vertices.Vertices)
+		{
+			UtilRen::SVector4 vector = { vertex.X, vertex.Y, vertex.Z, vertex.W };
+			positions.push_back(vector);
+		}
+	}
+	dx12->LoadAssets(positions);
 	dx12->LoadShader(assetManager->GetShaderPaths());
-
 	MSG msg = {};
 
 	while (msg.message != WM_QUIT)

@@ -3,17 +3,17 @@
 #pragma region Includes
 #include <string>
 #include <vector>
+#include "UtilStructs.h"
 #include "Defines.h"
+
 #pragma endregion //Includes
 
 
 namespace Util
 {
-	
-
-	namespace AssetImporter
+	namespace AssetManager
 	{
-		class ASSET_IMPORTER_API AssetManager
+		class ASSET_MANAGER_API AssetManager
 		{
 		public:
 			static void Create();
@@ -22,6 +22,7 @@ namespace Util
 
 			void Init();
 			std::vector<std::wstring> GetShaderPaths() const;
+			std::vector<::Util::Util::SMesh> GetMeshes() const;
 			~AssetManager();
 		private:
 			AssetManager();
@@ -35,8 +36,9 @@ namespace Util
 			std::string m_objectsDir;
 			std::string m_materialsDir;
 			std::vector<std::wstring> m_shaderPaths;
+			std::vector<::Util::Util::SMesh> m_loadedMeshes;
 			static AssetManager* s_assetManagerHandle;
 		};
 	}
 }
-namespace UtAI = ::Util::AssetImporter;
+namespace UtAI = ::Util::AssetManager;
