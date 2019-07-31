@@ -6,12 +6,12 @@ namespace Core
 {
 	namespace Util
 	{
-		class Job
+		class MLJob
 		{
 		public:
-			Job() = default; 
+			MLJob() = default; 
 			virtual void Work() = 0;
-			~Job() = default;
+			~MLJob() = default;
 		private:
 		};
 	}

@@ -12,23 +12,23 @@ namespace Core
 {
 	namespace Util
 	{
-		class ThreadPool
+		class MLThreadPool
 		{
 		public: 
 			static void Create();
-			static ThreadPool* GetHandle();
+			static MLThreadPool* GetHandle();
 			static void Destroy();
-			static void AddJob(class Job* job);
+			static void AddMLJob(class MLJob* job);
 			static void Wait();
-			~ThreadPool();
-			void operator=(const ThreadPool&) = delete;
-			ThreadPool(const ThreadPool&) = delete;
+			~MLThreadPool();
+			void operator=(const MLThreadPool&) = delete;
+			MLThreadPool(const MLThreadPool&) = delete;
 		private: 
-			ThreadPool();
+			MLThreadPool();
 			std::vector<std::thread> m_threads;
-			std::queue<class Job*> m_jobs;
-			static ThreadPool* s_threadPool;
-			void DoJob();
+			std::queue<class MLJob*> m_jobs;
+			static MLThreadPool* s_MLThreadPool;
+			void DoMLJob();
 			void Abort();
 			std::mutex m_mutex;
 			std::atomic<size_t> m_numOfThreads;
