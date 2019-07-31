@@ -56,7 +56,21 @@ namespace Core
 			 */
 			int32_t Num() const
 			{
-				return m_container.size();
+				return (int32_t)m_container.size();
+			}
+			/**
+			 * Empties the array
+			 */
+			void Empty() const
+			{
+				m_container.clear();
+			}
+			/**
+			 * operator overload for [] operation
+			 */
+			T operator[](const int32_t& inIndex)
+			{
+				return m_container.at(inIndex);
 			}
 
 		private: 
