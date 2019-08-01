@@ -19,23 +19,18 @@ namespace Util
 
 			SVector4() = default;
 
-			SVector4(const SVector4& other)
-				:X(other.X)
-				, Y(other.Y)
-				, Z(other.Z)
-				, W(other.W)
+			SVector4(const SVector4& other) = default;
+
+			SVector4(const float& x, const float& y, const float& z, const float& w = 1.0f)
+				:X(x)
+				,Y(y)
+				,Z(z)
+				,W(w)
 			{
 
 			}
 
-			SVector4(const float& _x, const float& _y, const float& _z, const float& _w = 1.0f)
-				:X(_x)
-				,Y(_y)
-				,Z(_z)
-				,W(_w)
-			{
-
-			}
+			~SVector4() = default;
 		}; 
 
 		struct SHARED_STRUCTS_API SVertex
@@ -47,26 +42,26 @@ namespace Util
 		struct SHARED_STRUCTS_API SWindowParams
 		{
 			SWindowParams(const EResolution& res)
-				:Width(GetResolution(res).Width)
-				,Height(GetResolution(res).Height)
+				:WIDTH(GetResolution(res).WIDTH)
+				,HEIGHT(GetResolution(res).HEIGHT)
 			{
 
 			}
 			HWND WndHandle = {};
-			const unsigned short Width;
-			const unsigned short Height;
+			const unsigned short WIDTH;
+			const unsigned short HEIGHT;
 		};
 		struct SHARED_STRUCTS_API SWindowCreationParams
 		{
 			SWindowCreationParams(const EResolution& res)
-				:Width(GetResolution(res).Width)
-				,Height(GetResolution(res).Height)
+				:WIDTH(GetResolution(res).WIDTH)
+				,HEIGHT(GetResolution(res).HEIGHT)
 				,NCmdShow(-1)
 			{
 
 			}
-			const unsigned short Width;
-			const unsigned short Height;
+			const unsigned short WIDTH;
+			const unsigned short HEIGHT;
 			HINSTANCE HInstance = {};
 			int NCmdShow;
 		};

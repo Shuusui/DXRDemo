@@ -16,15 +16,15 @@ namespace Core
 			MLMap();
 			~MLMap();
 		private: 
-			MLTree m_MLTree;
+			MLTree m_tree;
 		};
 		template<typename T1, typename T2>
-		inline MLMap<T1, T2>::MLMap()
+		MLMap<T1, T2>::MLMap()
 		{
 
 		}
 		template<typename T1, typename T2>
-		inline MLMap<T1, T2>::~MLMap()
+		MLMap<T1, T2>::~MLMap()
 		{
 		}
 	}

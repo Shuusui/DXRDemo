@@ -8,7 +8,7 @@
 
 namespace Rendering
 {
-	static inline std::string HrToString(const HRESULT& hr)
+	static std::string HrToString(const HRESULT& hr)
 	{
 		char str[64] = {};
 		sprintf_s(str, "HRESULT of 0x%08X", static_cast<UINT>(hr)); 
@@ -24,7 +24,7 @@ namespace Rendering
 		const HRESULT m_hr; 
 	};
 
-	static inline void ThrowIfFailed(const HRESULT& hr)
+	static void ThrowIfFailed(const HRESULT& hr)
 	{
 		if (FAILED(hr))
 		{
@@ -32,7 +32,7 @@ namespace Rendering
 		}
 	}
 
-	static inline void GetHardwareAdapter(IDXGIFactory4* pFactory, IDXGIAdapter1** ppAdapter)
+	static void GetHardwareAdapter(IDXGIFactory4* pFactory, IDXGIAdapter1** ppAdapter)
 	{
 		*ppAdapter = nullptr; 
 		for (UINT adapterIndex = 0;; ++adapterIndex)

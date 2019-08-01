@@ -14,7 +14,6 @@ namespace Core
 		*/
 		struct MLGuid
 		{
-		public:
 			/**
 			* Default Constructor which will initialize all four parts of the MLGuid with 0
 			*/
@@ -30,11 +29,11 @@ namespace Core
 			*
 			* @param inGuid microsoft Guid implementation which will initialize the four parts of the MLGuid with the four parts of microsofts MLGuid
 			*/
-			MLGuid(const GUID& inMLGuid)
-				:G(inMLGuid.Data1)
-				, U(static_cast<uint32_t>(inMLGuid.Data2))
-				, I(inMLGuid.Data3)
-				, D(inMLGuid.Data4[3]<<24 | inMLGuid.Data4[2]<<16 | inMLGuid.Data4[1]<<8 | inMLGuid.Data4[0])
+			MLGuid(const GUID& inGuid)
+				:G(inGuid.Data1)
+				, U(static_cast<uint32_t>(inGuid.Data2))
+				, I(inGuid.Data3)
+				, D(inGuid.Data4[3]<<24 | inGuid.Data4[2]<<16 | inGuid.Data4[1]<<8 | inGuid.Data4[0])
 			{
 			}
 
@@ -84,16 +83,16 @@ namespace Core
 			* operator overload for the equal-equal operator
 			* 
 			* @param other Other MLGuid to compare with 
-			* @return true or fales if the comparison is right
+			* @return result of the comparison
 			*/
-			bool operator==(const MLGuid& other);
+			bool operator==(const MLGuid& other) const;
 			/**
 			* operator overload for the equal-equal operator (this overload is mostly used to check if the MLGuid is null)
 			* 
 			* @param inNum number to compare with the MLGuid
-			* @return true or flase if the comparison is right
+			* @return true or false if the comparison is right
 			*/
-			bool operator==(const uint32_t& inNum);
+			bool operator==(const uint32_t& inNum) const;
 			/**
 			* function to check if the MLGuid is null 
 			* 
@@ -111,28 +110,25 @@ namespace Core
 __forceinline Core::Util::MLGuid Core::Util::MLGuid::NewMLGuid()
 {
 	GUID outGuid = {};
-	MLGuid outMLGuid = {};
 	if (CoCreateGuid(&outGuid) != S_OK)
 	{
 		//TODO: implement error messaging here
-		return outMLGuid;
+		return {};
 	}
-	MLGuid(MLGuid);
-	return outMLGuid;
+	return { outGuid };
 }
 
-inline bool Core::Util::MLGuid::operator==(const MLGuid& other)
+inline bool Core::Util::MLGuid::operator==(const MLGuid& other) const
 {
-	
 	return this->G == other.G && this->U == other.U && this->I == other.I && this->D == other.D;
 }
 
-inline bool Core::Util::MLGuid::operator==(const uint32_t& inNum)
+inline bool Core::Util::MLGuid::operator==(const uint32_t& inNum) const
 {
 	return (this->G + this->U + this->I + this->D) == inNum;
 }
 
 inline bool Core::Util::MLGuid::IsNull() const
 {
-	return this == 0;
+	return *this == NULL;
 }

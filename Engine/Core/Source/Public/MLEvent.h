@@ -20,12 +20,12 @@ namespace Core
 			MLArray<std::function<void(T)>> m_registeredDelegates;
 		};
 		template<typename T>
-		inline MLEvent<T>::MLEvent(const MLString& inKeyIdentifier)
+		MLEvent<T>::MLEvent(const MLString& inKeyIdentifier)
 			:MLEventBase(inKeyIdentifier)
 		{
 		}
 		template<typename T>
-		inline MLEvent<T>::~MLEvent()
+		MLEvent<T>::~MLEvent()
 		{
 		}
 	}

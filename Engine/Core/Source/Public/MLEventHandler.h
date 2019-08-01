@@ -20,8 +20,8 @@ namespace Core
 			~MLEventHandler();
 		private:
 			MLEventHandler();
-			static MLEventHandler* s_MLEventHandlerHandle;
-			//MLMap<MLString, MLEventBase*> m_registeredMLEvents; 
+			static MLEventHandler* s_eventHandlerHandle;
+			//MLMap<MLString, MLEventBase*> m_registeredMLEvents;
 		};
 	}
 }

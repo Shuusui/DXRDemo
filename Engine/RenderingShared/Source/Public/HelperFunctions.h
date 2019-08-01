@@ -11,10 +11,10 @@ namespace Util
 	{
 		struct HELPER_FUNCTIONS_API SResolution
 		{
-			const unsigned short Width;
-			const unsigned short Height;
+			const unsigned short WIDTH;
+			const unsigned short HEIGHT;
 		};
-		static inline SResolution GetResolution(const EResolution& res)
+		static SResolution GetResolution(const EResolution& res)
 		{
 			switch (res)
 			{

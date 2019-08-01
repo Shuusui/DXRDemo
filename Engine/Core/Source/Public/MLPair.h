@@ -18,12 +18,12 @@ namespace Core
 			T2 m_value;
 		};
 		template<typename T1, typename T2>
-		inline MLPair<T1, T2>::MLPair()
+		MLPair<T1, T2>::MLPair()
 		{
 		}
 
 		template<typename T1, typename T2>
-		inline MLPair<T1, T2>::~MLPair()
+		MLPair<T1, T2>::~MLPair()
 		{
 		}
 	}
