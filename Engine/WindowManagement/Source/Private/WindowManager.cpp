@@ -25,8 +25,8 @@ HWND Rendering::Window::WindowManager::CreateNewWindow(const UtilRen::SWindowCre
 	wndClass.lpszClassName = wndClassParams.ClassName; 
 	wndClass.hbrBackground = wndClassParams.BackgroundColor; 
 	RECT rect = {};
-	rect.right = wndCreationParams.Width; 
-	rect.bottom = wndCreationParams.Height; 
+	rect.right = wndCreationParams.WIDTH; 
+	rect.bottom = wndCreationParams.HEIGHT; 
 	AdjustWindowRectEx(&rect, adjWndRectParams.DwStyle, adjWndRectParams.BMenu, adjWndRectParams.DwExStyle); 
 	RegisterClassEx(&wndClass); 
 	HWND wndHandle = CreateWindowEx(

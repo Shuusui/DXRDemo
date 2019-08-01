@@ -7,9 +7,9 @@
 
 Rendering::DX12::DX12(const UtilRen::SWindowParams& wndParams)
 	:m_wndParams(wndParams)
-	, m_viewport(0.0f, 0.0f, static_cast<float>(wndParams.Width), static_cast<float>(wndParams.Height))
-	, m_scissorRect(0, 0, static_cast<LONG>(wndParams.Width), static_cast<LONG>(wndParams.Height))
-	, m_aspectRatio(static_cast<float>(wndParams.Width) / static_cast<float>(wndParams.Height))
+	, m_viewport(0.0f, 0.0f, static_cast<float>(wndParams.WIDTH), static_cast<float>(wndParams.HEIGHT))
+	, m_scissorRect(0, 0, static_cast<LONG>(wndParams.WIDTH), static_cast<LONG>(wndParams.HEIGHT))
+	, m_aspectRatio(static_cast<float>(wndParams.WIDTH) / static_cast<float>(wndParams.HEIGHT))
 	, m_rtvDescriptorSize(0)
 	, m_vertexBufferView(D3D12_VERTEX_BUFFER_VIEW{})
 	, m_frameIndex(0)
@@ -55,8 +55,8 @@ void Rendering::DX12::Init()
 
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {}; 
 	swapChainDesc.BufferCount = FrameCount; 
-	swapChainDesc.BufferDesc.Width = m_wndParams.Width;
-	swapChainDesc.BufferDesc.Height = m_wndParams.Height;
+	swapChainDesc.BufferDesc.Width = m_wndParams.WIDTH;
+	swapChainDesc.BufferDesc.Height = m_wndParams.HEIGHT;
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; 
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; 

@@ -163,7 +163,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CoreTest.cpp" />
+    <ClCompile Include="CoreArrayTest.cpp" />
+    <ClCompile Include="CoreGuidTest.cpp" />
+    <ClCompile Include="CoreStringTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

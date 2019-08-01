@@ -56,7 +56,7 @@ namespace Core
 			 */
 			int32_t Num() const
 			{
-				return (int32_t)m_container.size();
+				return static_cast<int32_t>(m_container.size());
 			}
 			/**
 			 * Empties the array
@@ -65,14 +65,26 @@ namespace Core
 			{
 				m_container.clear();
 			}
+			const T* GetData() const
+			{
+				return m_container.data();
+			}
 			/**
 			 * operator overload for [] operation
 			 */
-			T operator[](const int32_t& inIndex)
+			T operator[](const int32_t& inIndex) const
 			{
 				return m_container.at(inIndex);
 			}
-
+			void operator+=(const MLArray<T>& other)
+			{
+				const int size = m_container.size();
+				m_container.resize(m_container.size() + other.Num());
+				for(int32_t i = 0; i < other.Num(); i++)
+				{
+					m_container[size + i] = other[i];
+				}
+			}
 		private: 
 			std::vector<T> m_container;
 		};

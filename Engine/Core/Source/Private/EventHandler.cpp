@@ -1,18 +1,18 @@
 #include "../Public/MLEventHandler.h"
 
-Core::Util::MLEventHandler* Core::Util::MLEventHandler::s_MLEventHandlerHandle = nullptr;
+Core::Util::MLEventHandler* Core::Util::MLEventHandler::s_eventHandlerHandle = nullptr;
 
 void Core::Util::MLEventHandler::Create()
 {
-	if (!s_MLEventHandlerHandle)
+	if (!s_eventHandlerHandle)
 	{
-		s_MLEventHandlerHandle = new MLEventHandler();
+		s_eventHandlerHandle = new MLEventHandler();
 	}
 }
 
 Core::Util::MLEventHandler* Core::Util::MLEventHandler::GetHandle()
 {
-	return s_MLEventHandlerHandle;
+	return s_eventHandlerHandle;
 }
 
 void Core::Util::MLEventHandler::RegisterMLEvent(MLEventBase* inMLEvent)
@@ -21,6 +21,6 @@ void Core::Util::MLEventHandler::RegisterMLEvent(MLEventBase* inMLEvent)
 
 Core::Util::MLEventHandler::~MLEventHandler()
 {
-	delete s_MLEventHandlerHandle;
-	s_MLEventHandlerHandle = nullptr;
+	delete s_eventHandlerHandle;
+	s_eventHandlerHandle = nullptr;
 }

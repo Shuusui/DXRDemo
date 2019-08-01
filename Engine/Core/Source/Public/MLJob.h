@@ -12,7 +12,6 @@ namespace Core
 			MLJob() = default; 
 			virtual void Work() = 0;
 			~MLJob() = default;
-		private:
 		};
 	}
 }

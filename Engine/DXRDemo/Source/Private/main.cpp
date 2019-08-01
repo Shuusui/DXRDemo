@@ -17,7 +17,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	UtilRen::SWindowClassParams wndClassParams = {};
 	wndClassParams.ClassName = "DXRDemo";
 
-	UtilRen::SAdjustWindowRectParams adjWndRectParams = {};
+	const UtilRen::SAdjustWindowRectParams adjWndRectParams = {};
 
 	UtilRen::SWindowHandleParams wndHandleParams = {};
 	wndHandleParams.ClassName = "DXRDemo";
