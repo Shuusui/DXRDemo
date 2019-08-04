@@ -48,7 +48,7 @@ Util::Util::SMesh Util::Util::ObjReader::ReadObjFile(const std::string& filePath
 			case 's':
 				if (line[3] != 'o')
 				{
-					object.SmootingGroup = atoi(line.substr(2, line.size() - 2).c_str());
+					object.SmoothingGroup = atoi(line.substr(2, line.size() - 2).c_str());
 				}
 				break;
 			case 'f' :

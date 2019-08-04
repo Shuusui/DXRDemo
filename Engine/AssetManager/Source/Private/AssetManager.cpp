@@ -8,7 +8,7 @@ Util::AssetManager::AssetManager* Util::AssetManager::AssetManager::s_assetManag
 
 Util::AssetManager::AssetManager::AssetManager()
 {
-	DWORD bufferLength = MAX_PATH;
+	const DWORD bufferLength = MAX_PATH;
 	char currentDirectory[MAX_PATH + 1];
 	DWORD dirPathLength = GetCurrentDirectory(bufferLength, currentDirectory);
 	m_workingDir = currentDirectory;
@@ -38,7 +38,7 @@ void Util::AssetManager::AssetManager::Create()
 {
 	if (!s_assetManagerHandle)
 	{
- 		s_assetManagerHandle = new ::Util::AssetManager::AssetManager();
+ 		s_assetManagerHandle = new AssetManager();
 	}
 }
 

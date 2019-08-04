@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="CoreArrayTest.cpp" />
     <ClCompile Include="CoreGuidTest.cpp" />
+    <ClCompile Include="CorePairTest.cpp" />
     <ClCompile Include="CoreStringTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

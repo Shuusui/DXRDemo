@@ -1,7 +1,7 @@
 #pragma once
 #pragma region Includes
-#include "MLTree.h"
 #include "MLPair.h"
+#include <map>
 #pragma endregion //Includes
 
 
@@ -14,15 +14,23 @@ namespace Core
 		{
 		public: 
 			MLMap();
+			MLMap(const std::initializer_list<MLPair<T1, T2>>& inInitializerList);
 			~MLMap();
 		private: 
-			MLTree m_tree;
+			std::map<T1, T2> m_map;
 		};
 		template<typename T1, typename T2>
 		MLMap<T1, T2>::MLMap()
+			:m_map({})
 		{
-
 		}
+
+		template <typename T1, typename T2>
+		MLMap<T1, T2>::MLMap(const std::initializer_list<MLPair<T1, T2>>& inInitializerList)
+			:m_map(inInitializerList)
+		{
+		}
+
 		template<typename T1, typename T2>
 		MLMap<T1, T2>::~MLMap()
 		{

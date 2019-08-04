@@ -58,7 +58,7 @@ namespace Util
 			std::vector<SFace> Faces = {};
 			std::string Name = {};
 			std::string Material = {};
-			int32_t SmootingGroup = 0;
+			int32_t SmoothingGroup = 0;
 		};
 		struct UTIL_LIB_API SMesh
 		{

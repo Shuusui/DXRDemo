@@ -21,11 +21,9 @@
     <ClInclude Include="Source\Public\MLMap.h" />
     <ClInclude Include="Source\Public\MLMultiMap.h" />
     <ClInclude Include="Source\Public\MLPair.h" />
-    <ClInclude Include="Source\Public\MLPairBase.h" />
     <ClInclude Include="Source\Public\MLString.h" />
     <ClInclude Include="Source\Public\MLArray.h" />
     <ClInclude Include="Source\Public\MLThreadPool.h" />
-    <ClInclude Include="Source\Public\MLTree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Private\EventHandler.cpp" />

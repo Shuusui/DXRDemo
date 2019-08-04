@@ -23,6 +23,13 @@ namespace Core
 				array.Add(6);
 				Assert::AreEqual(1, array.Num());
 				Assert::AreEqual(6, array[0]);
+				const MLArray<int> secArray = MLArray<int>{ 3,5,7 };
+				const MLArray<int> resultArray = array + secArray;
+				Assert::AreEqual(4, resultArray.Num());
+				Assert::AreEqual(6, resultArray[0]);
+				Assert::AreEqual(3, resultArray[1]);
+				Assert::AreEqual(5, resultArray[2]);
+				Assert::AreEqual(7, resultArray[3]);
 			}
 			TEST_METHOD(ArrayOperatorOverloadTest)
 			{
@@ -31,7 +38,7 @@ namespace Core
 				Assert::AreEqual(2, array[0]);
 				Assert::AreEqual(3, array[1]);
 				Assert::AreEqual(5, array[2]);
-				const MLArray<int> appendingArray = MLArray<int>{ 7,3,6 };
+				MLArray<int> appendingArray = MLArray<int>{ 7,3,6 };
 				Assert::AreEqual(7, appendingArray[0]);
 				Assert::AreEqual(3, appendingArray[1]);
 				Assert::AreEqual(6, appendingArray[2]);
@@ -40,6 +47,11 @@ namespace Core
 				Assert::AreEqual(7, array[3]);
 				Assert::AreEqual(3, array[4]);
 				Assert::AreEqual(6, array[5]);
+				Assert::IsFalse(array == appendingArray);
+				Assert::IsTrue(array != appendingArray);
+				const MLArray<int> sameArray = MLArray<int>(array);
+				Assert::IsTrue(array == sameArray);
+				Assert::IsFalse(array != sameArray);
 			}
 		};
 	}
