@@ -25,6 +25,10 @@ namespace Core
 			explicit MLArray(const std::initializer_list<T>& inInitializerList)
 				:m_container(inInitializerList)
 			{
+			}
+			MLArray(const MLArray<T>& other)
+				:m_container(other.m_container)
+			{
 				
 			}
 			/**
@@ -40,7 +44,7 @@ namespace Core
 			 */
 			void RemoveAt(const int32_t& inIndex)
 			{
-				m_container.erase(inIndex);
+				m_container.erase(m_container.begin()+inIndex);
 			}
 			/**
 			 * Removes all elements with the incoming value
@@ -76,14 +80,55 @@ namespace Core
 			{
 				return m_container.at(inIndex);
 			}
-			void operator+=(const MLArray<T>& other)
+
+			T At(const int32_t& inIndex) const
 			{
-				const int size = m_container.size();
-				m_container.resize(m_container.size() + other.Num());
-				for(int32_t i = 0; i < other.Num(); i++)
+				return m_container.at(inIndex);
+			}
+
+			void operator+=(MLArray<T>& other)
+			{
+				m_container.insert(m_container.end(), std::make_move_iterator(other.m_container.begin()), std::make_move_iterator(other.m_container.end()));
+			}
+
+			MLArray<T> operator+(const MLArray<T>& other)
+			{
+				MLArray<T> tempContainer(*this);
+				tempContainer.m_container.insert(tempContainer.m_container.end(), other.m_container.begin(), other.m_container.end());
+				return tempContainer;
+			}
+
+			bool operator==(const MLArray<T>& other)
+			{
+				if(this->Num() != other.Num())
 				{
-					m_container[size + i] = other[i];
+					return false;
 				}
+				for(size_t i = 0; i < this->Num(); i++)
+				{
+					if(this->At(i) != other.At(i))
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+
+			bool operator!=(const MLArray<T>& other)
+			{
+				if(this->Num() != other.Num())
+				{
+					return true;
+				}
+				size_t count = 0;
+				for(size_t i = 0; i < this->Num()-1; i++)
+				{
+					if(this->At(i) == other.At(i))
+					{
+						count++;
+					}
+				}
+				return count == this->Num();
 			}
 		private: 
 			std::vector<T> m_container;

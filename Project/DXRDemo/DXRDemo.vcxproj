@@ -75,7 +75,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)UtilLib\Source\Public;$(SolutionDir)AssetManager\Source\Public;$(SolutionDir)DX12\Source\Rendering\Public;$(SolutionDir)WindowManagement\Source\Public;$(SolutionDir)RenderingShared\Source\Public;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\UtilLib\Source\Public;$(SolutionDir)Engine\AssetManager\Source\Public;$(SolutionDir)Engine\DX12\Source\Rendering\Public;$(SolutionDir)Engine\WindowManagement\Source\Public;$(SolutionDir)Engine\RenderingShared\Source\Public;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

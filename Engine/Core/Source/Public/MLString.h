@@ -38,9 +38,13 @@ namespace Core
 			{
 				return m_string.Num()-1;
 			}
+
+			
 			void Append(const char* inString)
 			{
-				m_string += ConvertConstCharPtrToCharArray(inString);
+				DelEnd();
+				MLArray<char> string = ConvertConstCharPtrToCharArray(inString);
+				m_string += string;
 			}
 			const char* operator *() const
 			{
@@ -55,6 +59,10 @@ namespace Core
 			*/
 			~MLString() = default;
 		private:
+			void DelEnd()
+			{
+				m_string.RemoveAt(m_string.Num()-1);
+			}
 			static MLArray<char> ConvertConstCharPtrToCharArray(const char* inString)
 			{
 				MLArray<char> outArray = {};
