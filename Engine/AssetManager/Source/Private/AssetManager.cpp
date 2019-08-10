@@ -4,9 +4,9 @@
 #include <fstream>
 #include "ObjReader.h"
 
-Util::AssetManager::AssetManager* Util::AssetManager::AssetManager::s_assetManagerHandle = nullptr;
+Util::AssetManager::MLAssetManager* Util::AssetManager::MLAssetManager::s_assetManagerHandle = nullptr;
 
-Util::AssetManager::AssetManager::AssetManager()
+Util::AssetManager::MLAssetManager::MLAssetManager()
 {
 	const DWORD bufferLength = MAX_PATH;
 	char currentDirectory[MAX_PATH + 1];
@@ -19,46 +19,46 @@ Util::AssetManager::AssetManager::AssetManager()
 	m_shadersDir = m_contentDir + "\\Shaders\\";
 }
 
-void Util::AssetManager::AssetManager::Init()
+void Util::AssetManager::MLAssetManager::Init()
 {
 	LoadAssetsFromDir();
 }
 
-std::vector<std::wstring> Util::AssetManager::AssetManager::GetShaderPaths() const
+std::vector<std::wstring> Util::AssetManager::MLAssetManager::GetShaderPaths() const
 {
 	return m_shaderPaths;
 }
 
-std::vector<::Util::Util::SMesh> Util::AssetManager::AssetManager::GetMeshes() const
+std::vector<::Util::Util::SMesh> Util::AssetManager::MLAssetManager::GetMeshes() const
 {
 	return m_loadedMeshes;
 }
 
-void Util::AssetManager::AssetManager::Create()
+void Util::AssetManager::MLAssetManager::Create()
 {
 	if (!s_assetManagerHandle)
 	{
- 		s_assetManagerHandle = new AssetManager();
+ 		s_assetManagerHandle = new MLAssetManager();
 	}
 }
 
-Util::AssetManager::AssetManager* Util::AssetManager::AssetManager::GetHandle()
+Util::AssetManager::MLAssetManager* Util::AssetManager::MLAssetManager::GetHandle()
 {
 	return s_assetManagerHandle;
 }
 
-void Util::AssetManager::AssetManager::Shutdown()
+void Util::AssetManager::MLAssetManager::Shutdown()
 {
 	delete s_assetManagerHandle;
 	s_assetManagerHandle = nullptr;
 }
 
-Util::AssetManager::AssetManager::~AssetManager()
+Util::AssetManager::MLAssetManager::~MLAssetManager()
 {
 
 }
 
-void Util::AssetManager::AssetManager::LoadAssetsFromDir()
+void Util::AssetManager::MLAssetManager::LoadAssetsFromDir()
 {
 	for (const auto& file : std::filesystem::directory_iterator(m_shadersDir))
 	{
@@ -90,12 +90,12 @@ void Util::AssetManager::AssetManager::LoadAssetsFromDir()
 	}
 }
 
-void Util::AssetManager::AssetManager::LoadObject(const std::string& filePath)
+void Util::AssetManager::MLAssetManager::LoadObject(const std::string& filePath)
 {
-	m_loadedMeshes.push_back(::Util::Util::ObjReader::ReadObjFile(filePath));
+	m_loadedMeshes.push_back(::Util::Util::MLObjReader::ReadObjFile(filePath));
 }
 
-void Util::AssetManager::AssetManager::LoadMtl(const std::string& filePath)
+void Util::AssetManager::MLAssetManager::LoadMtl(const std::string& filePath)
 {
-	std::vector<::Util::Util::SMaterial> materials =  ::Util::Util::ObjReader::ReadMtlFile(filePath);
+	std::vector<::Util::Util::SMaterial> materials =  ::Util::Util::MLObjReader::ReadMtlFile(filePath);
 }

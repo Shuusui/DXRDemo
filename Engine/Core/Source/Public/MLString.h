@@ -30,7 +30,8 @@ namespace Core
 					m_string.Add(NULL_TERMINATOR);
 				}
 			}
-			MLString(const char* inString)
+
+			explicit MLString(const char* inString)
 				:m_string(ConvertConstCharPtrToCharArray(inString))
 			{
 			}

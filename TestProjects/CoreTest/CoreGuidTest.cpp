@@ -18,13 +18,13 @@ namespace Core
 				Assert::AreEqual(static_cast<int>(guid.GetG()), 0);
 				Assert::AreEqual(static_cast<int>(guid.GetU()), 0);
 				Assert::AreEqual(static_cast<int>(guid.GetI()), 0);
-				Assert::AreEqual(static_cast<int>(guid.GetD()), 0);
+				Assert::IsNull(guid.GetD());
 				Assert::IsTrue(guid.IsNull());
 				guid = MLGuid::NewMLGuid();
 				Assert::AreNotEqual(static_cast<int>(guid.GetG()), 0);
 				Assert::AreNotEqual(static_cast<int>(guid.GetU()), 0);
 				Assert::AreNotEqual(static_cast<int>(guid.GetI()), 0);
-				Assert::AreNotEqual(static_cast<int>(guid.GetD()), 0);
+				Assert::IsNotNull(guid.GetD());
 				Assert::IsFalse(guid.IsNull());
 			}
 			TEST_METHOD(OperatorOverload)
@@ -36,10 +36,6 @@ namespace Core
 				Assert::IsFalse(guid != sameGuid);
 				Assert::IsTrue(guid != secGuid);
 				Assert::IsFalse(guid == secGuid);
-				Assert::IsTrue(guid.GetCombinedNum() == sameGuid.GetCombinedNum());
-				Assert::IsFalse(guid.GetCombinedNum() != sameGuid.GetCombinedNum());
-				Assert::IsTrue(guid.GetCombinedNum() != secGuid.GetCombinedNum());
-				Assert::IsFalse(guid.GetCombinedNum() == secGuid.GetCombinedNum());
 			}
 		};
 	}

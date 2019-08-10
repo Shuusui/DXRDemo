@@ -13,7 +13,7 @@ namespace Util
 {
 	namespace Util
 	{
-		class UTIL_LIB_API ObjReader
+		class UTIL_LIB_API MLObjReader
 		{
 		public:
 			static SMesh ReadObjFile(const std::string& filePath);

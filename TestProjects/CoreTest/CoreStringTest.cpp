@@ -14,7 +14,7 @@ namespace Core
 
 			TEST_METHOD(InitializeString)
 			{
-				MLString string = {"cs"};
+				MLString string = MLString("cs");
 				Assert::AreEqual(static_cast<int>(string.Len()), 2);
 				string.Append("go");
 				Assert::AreEqual(static_cast<int>(string.Len()), 4);

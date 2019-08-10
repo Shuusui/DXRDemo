@@ -2,7 +2,7 @@
 #include <fstream>
 #include <thread>
 
-Util::Util::SMesh Util::Util::ObjReader::ReadObjFile(const std::string& filePath)
+Util::Util::SMesh Util::Util::MLObjReader::ReadObjFile(const std::string& filePath)
 {
 	std::ifstream objFile{ filePath };
 	SVerticesInformation infos = {};
@@ -71,7 +71,7 @@ Util::Util::SMesh Util::Util::ObjReader::ReadObjFile(const std::string& filePath
 
 }
 
-std::vector<Util::Util::SMaterial> Util::Util::ObjReader::ReadMtlFile(const std::string& filePath)
+std::vector<Util::Util::SMaterial> Util::Util::MLObjReader::ReadMtlFile(const std::string& filePath)
 {
 	std::ifstream mtlFile{ filePath };
 	std::vector<::Util::Util::SMaterial> materials = {};
@@ -166,7 +166,7 @@ std::vector<Util::Util::SMaterial> Util::Util::ObjReader::ReadMtlFile(const std:
 	return materials;
 }
 
-Util::Util::SVertex Util::Util::ObjReader::FillVertexStruct(const std::string& vertexString)
+Util::Util::SVertex Util::Util::MLObjReader::FillVertexStruct(const std::string& vertexString)
 {
 	SVertex vertex = {};
 	std::string tempStr = {};
@@ -202,7 +202,7 @@ Util::Util::SVertex Util::Util::ObjReader::FillVertexStruct(const std::string& v
 	return vertex;
 }
 
-Util::Util::SVertexNormal Util::Util::ObjReader::FillNormalStruct(const std::string& normalString)
+Util::Util::SVertexNormal Util::Util::MLObjReader::FillNormalStruct(const std::string& normalString)
 {
 	SVertexNormal normal = {};
 	std::string tempStr = {};
@@ -235,7 +235,7 @@ Util::Util::SVertexNormal Util::Util::ObjReader::FillNormalStruct(const std::str
 	return normal;
 }
 
-Util::Util::STextureCoord Util::Util::ObjReader::FillTexCoordStruct(const std::string& texCoordString)
+Util::Util::STextureCoord Util::Util::MLObjReader::FillTexCoordStruct(const std::string& texCoordString)
 {
 	STextureCoord texCoord = {};
 	std::string tempStr = {};
@@ -269,7 +269,7 @@ Util::Util::STextureCoord Util::Util::ObjReader::FillTexCoordStruct(const std::s
 	return texCoord;
 }
 
-Util::Util::SFace Util::Util::ObjReader::FillFaceStruct(const std::string& faceString)
+Util::Util::SFace Util::Util::MLObjReader::FillFaceStruct(const std::string& faceString)
 {
 	SFace face = {};
 	SVertexInformation info = {};
@@ -312,7 +312,7 @@ Util::Util::SFace Util::Util::ObjReader::FillFaceStruct(const std::string& faceS
 	return face;
 }
 
-Util::Util::SSpaceVertex Util::Util::ObjReader::FillSpaceVertexStruct(const std::string& spaceVertexString)
+Util::Util::SSpaceVertex Util::Util::MLObjReader::FillSpaceVertexStruct(const std::string& spaceVertexString)
 {
 	SSpaceVertex spaceVertex = {};
 	std::string tempStr = {};
@@ -345,7 +345,7 @@ Util::Util::SSpaceVertex Util::Util::ObjReader::FillSpaceVertexStruct(const std:
 	return spaceVertex;
 }
 
-Util::Util::SColorRGB Util::Util::ObjReader::FillColorStruct(const std::string& colorString)
+Util::Util::SColorRGB Util::Util::MLObjReader::FillColorStruct(const std::string& colorString)
 {
 	SColorRGB color = {};
 	std::string tempStr = {};
@@ -372,7 +372,7 @@ Util::Util::SColorRGB Util::Util::ObjReader::FillColorStruct(const std::string& 
 	return color;
 }
 
-Util::Util::SColorTextureOptions Util::Util::ObjReader::FillColorTextureMapStruct(const std::string& colorMapString)
+Util::Util::SColorTextureOptions Util::Util::MLObjReader::FillColorTextureMapStruct(const std::string& colorMapString)
 {
 	SColorTextureOptions colorOption = {};
 	for (uint8_t i = 0; i < colorMapString.size(); i++)
@@ -478,7 +478,7 @@ Util::Util::SColorTextureOptions Util::Util::ObjReader::FillColorTextureMapStruc
 	return colorOption;
 }
 
-Util::Util::SBumpTextureOptions Util::Util::ObjReader::FillBumpTextureMapStruct(const std::string& bumpMapString)
+Util::Util::SBumpTextureOptions Util::Util::MLObjReader::FillBumpTextureMapStruct(const std::string& bumpMapString)
 {
 	SBumpTextureOptions bumpOption = {};
 
@@ -486,7 +486,7 @@ Util::Util::SBumpTextureOptions Util::Util::ObjReader::FillBumpTextureMapStruct(
 	return bumpOption; 
 }
 
-Util::Util::SReflectionMap Util::Util::ObjReader::FillReflectionMapStruct(const std::string& reflMapString)
+Util::Util::SReflectionMap Util::Util::MLObjReader::FillReflectionMapStruct(const std::string& reflMapString)
 {
 	SReflectionMap reflMap = {};
 	for (size_t i = 0; i < reflMapString.size(); i++)

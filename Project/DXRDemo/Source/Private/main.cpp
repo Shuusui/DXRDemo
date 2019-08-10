@@ -30,8 +30,8 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	Rendering::DX12* dx12 = new Rendering::DX12(wndParams);
 	dx12->Init();
 
-	UtAI::AssetManager::Create();
-	UtAI::AssetManager* assetManager = UtAI::AssetManager::GetHandle();
+	UtAI::MLAssetManager::Create();
+	UtAI::MLAssetManager* assetManager = UtAI::MLAssetManager::GetHandle();
 	assetManager->Init();
 	std::vector<Util::Util::SMesh> meshes = assetManager->GetMeshes();
 	std::vector<UtilRen::SVector4> positions = {};

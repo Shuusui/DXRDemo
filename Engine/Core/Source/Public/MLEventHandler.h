@@ -16,7 +16,7 @@ namespace Core
 		public:
 			static void Create();
 			static MLEventHandler* GetHandle();
-			void RegisterMLEvent(MLEventBase* inMLEvent);
+			void RegisterEvent(MLEventBase* inMLEvent);
 			~MLEventHandler();
 		private:
 			MLEventHandler();

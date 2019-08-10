@@ -13,22 +13,22 @@ namespace Util
 {
 	namespace AssetManager
 	{
-		class ASSET_MANAGER_API AssetManager
+		class ASSET_MANAGER_API MLAssetManager
 		{
 		public:
 			static void Create();
-			static AssetManager* GetHandle();
+			static MLAssetManager* GetHandle();
 			static void Shutdown();
 
 			void Init();
-			std::vector<std::wstring> GetShaderPaths() const;
-			std::vector<::Util::Util::SMesh> GetMeshes() const;
-			~AssetManager();
+			[[nodiscard]] std::vector<std::wstring> GetShaderPaths() const;
+			[[nodiscard]] std::vector<Util::SMesh> GetMeshes() const;
+			~MLAssetManager();
 		private:
-			AssetManager();
+			MLAssetManager();
 			void LoadAssetsFromDir();
 			void LoadObject(const std::string& filePath);
-			void LoadMtl(const std::string& filePath);
+			static void LoadMtl(const std::string& filePath);
 			std::string m_workingDir;
 			std::string m_contentDir;
 			std::string m_shadersDir;
@@ -36,8 +36,8 @@ namespace Util
 			std::string m_objectsDir;
 			std::string m_materialsDir;
 			std::vector<std::wstring> m_shaderPaths;
-			std::vector<::Util::Util::SMesh> m_loadedMeshes;
-			static AssetManager* s_assetManagerHandle;
+			std::vector<Util::SMesh> m_loadedMeshes;
+			static MLAssetManager* s_assetManagerHandle;
 		};
 	}
 }

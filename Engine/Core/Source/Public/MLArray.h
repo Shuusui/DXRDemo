@@ -26,10 +26,30 @@ namespace Core
 				:m_container(inInitializerList)
 			{
 			}
+			/**
+			 * copy constructor
+			 * @param other The other MLArray to get the initialization data from
+			 */
 			MLArray(const MLArray<T>& other)
 				:m_container(other.m_container)
 			{
 				
+			}
+			/**
+			 * move constructor
+			 * @param other The other MLArray to move the container from
+			 */
+			MLArray(MLArray&& other) noexcept
+				:m_container(std::move(other.m_container))
+			{
+				
+			}
+			/**
+			 *destructor
+			*/
+			~MLArray()
+			{
+				m_container.clear();
 			}
 			/**
 			 * Function to add an element at the end of the array
@@ -69,6 +89,7 @@ namespace Core
 			{
 				m_container.clear();
 			}
+
 			const T* GetData() const
 			{
 				return m_container.data();
@@ -96,6 +117,25 @@ namespace Core
 				MLArray<T> tempContainer(*this);
 				tempContainer.m_container.insert(tempContainer.m_container.end(), other.m_container.begin(), other.m_container.end());
 				return tempContainer;
+			}
+
+			MLArray& operator=(const MLArray& other)
+			{
+				if(&other == this)
+				{
+					return *this;
+				}
+				this->m_container = other.m_container;
+				return *this;
+			}
+			MLArray& operator=(MLArray&& other) noexcept
+			{
+				if(&other == this)
+				{
+					return *this;
+				}
+				this->m_container = other.m_container;
+				return *this;
 			}
 
 			bool operator==(const MLArray<T>& other)
