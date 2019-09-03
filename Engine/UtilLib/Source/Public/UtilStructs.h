@@ -1,10 +1,9 @@
 #pragma once
-#include <string>
-#include <vector>
+
+#include "MLArray.h"
+#include "MLString.h"
 #include "Defines.h"
 #include "UtilEnums.h"
-
-
 
 namespace Util
 {
@@ -37,11 +36,11 @@ namespace Util
 		};
 		struct UTIL_LIB_API SVerticesInformation
 		{
-			std::vector<SVertex> Vertices = {};
-			std::vector<STextureCoord> TextureCoords = {};
-			std::vector<SVertexNormal> Normals = {};
-			std::vector<SSpaceVertex> SpaceVertices = {};
-			std::vector<std::string> MtlLibs = {};
+			Core::Util::MLArray<SVertex> Vertices = {};
+			Core::Util::MLArray<STextureCoord> TextureCoords = {};
+			Core::Util::MLArray<SVertexNormal> Normals = {};
+			Core::Util::MLArray<SSpaceVertex> SpaceVertices = {};
+			Core::Util::MLArray<Core::Util::MLString> MtlLibs = {};
 		};
 		struct UTIL_LIB_API SVertexInformation
 		{
@@ -55,15 +54,15 @@ namespace Util
 		};
 		struct UTIL_LIB_API SObject
 		{
-			std::vector<SFace> Faces = {};
-			std::string Name = {};
-			std::string Material = {};
+			Core::Util::MLArray<SFace> Faces = {};
+			Core::Util::MLString Name = {};
+			Core::Util::MLString Material = {};
 			int32_t SmoothingGroup = 0;
 		};
 		struct UTIL_LIB_API SMesh
 		{
 			SVerticesInformation Vertices = {};
-			std::vector<SObject> Objects = {};
+			Core::Util::MLArray<SObject> Objects = {};
 		};
 		struct UTIL_LIB_API SColorRGB
 		{
@@ -112,7 +111,7 @@ namespace Util
 			SOriginOffset Offset = {};
 			SScale ScaleApply = {};
 			STurbulance TurbulanceApply = {};
-			std::string TextureName = {};
+			Core::Util::MLString TextureName = {};
 			SMMOption MM = {};
 			STexResOption TexRes = {};
 			bool BlendU = true;
@@ -121,12 +120,12 @@ namespace Util
 		};
 		namespace TextureChannel
 		{
-			const uint8_t RChannel = 0b0000'0001;
-			const uint8_t GChannel = 0b0000'0010;
-			const uint8_t BChannel = 0b0000'0100;
-			const uint8_t MChannel = 0b0000'1000;
-			const uint8_t LChannel = 0b0001'0000;
-			const uint8_t ZChannel = 0b0010'0000;
+			const uint8_t R_CHANNEL = 0b0000'0001;
+			const uint8_t G_CHANNEL = 0b0000'0010;
+			const uint8_t B_CHANNEL = 0b0000'0100;
+			const uint8_t M_CHANNEL = 0b0000'1000;
+			const uint8_t L_CHANNEL = 0b0001'0000;
+			const uint8_t Z_CHANNEL = 0b0010'0000;
 		}
 		struct UTIL_LIB_API SColorTextureOptions : public STextureOptionBase
 		{
@@ -134,12 +133,12 @@ namespace Util
 		};
 		struct UTIL_LIB_API SScalarTextureOptions : public STextureOptionBase
 		{
-			uint8_t ImfChannel = TextureChannel::LChannel;
+			uint8_t ImfChannel = TextureChannel::L_CHANNEL;
 		};
 		struct UTIL_LIB_API SBumpTextureOptions : public STextureOptionBase
 		{
 			float BmMult = 1.0f;
-			uint8_t ImfChannel = TextureChannel::LChannel;
+			uint8_t ImfChannel = TextureChannel::L_CHANNEL;
 		};
 		struct UTIL_LIB_API SReflectionMapOptions : public SColorTextureOptions
 		{
@@ -147,7 +146,7 @@ namespace Util
 		};
 		struct UTIL_LIB_API SReflectionMap
 		{
-			std::vector<SReflectionMapOptions> CubeReflectionTextures;
+			Core::Util::MLArray<SReflectionMapOptions> CubeReflectionTextures;
 		};
 		struct UTIL_LIB_API SDissolveOption
 		{
@@ -156,7 +155,7 @@ namespace Util
 		};
 		struct UTIL_LIB_API SMaterial
 		{
-			std::string Name = {};
+			Core::Util::MLString Name = {};
 			SBumpTextureOptions BumpMapTexture = {};
 			SReflectionMap ReflectionMap = {};
 			SScalarTextureOptions SpecularExponentMapTexture = {};

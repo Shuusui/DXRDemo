@@ -35,11 +35,24 @@ namespace Core
 				:m_string(ConvertConstCharPtrToCharArray(inString))
 			{
 			}
+
+			MLString SubStr(const uint32_t& inStartPos, const uint32_t& inEndPos)
+			{
+				if(inStartPos < 0 || inStartPos > Len() ||inEndPos <0 || inEndPos >Len())
+				{
+					return MLString();
+				}
+			}
+
 			uint32_t Len() const
 			{
 				return m_string.Num()-1;
 			}
 
+			bool IsEmpty() const
+			{
+				return m_string.IsEmpty();
+			}
 			
 			void Append(const char* inString)
 			{

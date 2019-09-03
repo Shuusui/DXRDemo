@@ -15,9 +15,10 @@ Core::Util::MLEventHandler* Core::Util::MLEventHandler::GetHandle()
 	return s_eventHandlerHandle;
 }
 
-void Core::Util::MLEventHandler::RegisterEvent(MLEventBase* inMLEvent)
+void Core::Util::MLEventHandler::RegisterEvent(const MLString& inEventIdentifier, const MLEventBase& inMLEvent)
 {
 }
+
 
 Core::Util::MLEventHandler::~MLEventHandler()
 {

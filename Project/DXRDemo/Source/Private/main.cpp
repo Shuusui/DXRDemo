@@ -10,7 +10,7 @@
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-	UtilRen::SWindowCreationParams wndCreationParams = { UtilRen::EResolution::FULL_HD };
+	UtilRen::SWindowCreationParams wndCreationParams = UtilRen::SWindowCreationParams{ UtilRen::EResolution::FULL_HD };
 	wndCreationParams.HInstance = hInstance;
 	wndCreationParams.NCmdShow = nShowCmd;
 
@@ -23,7 +23,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	wndHandleParams.ClassName = "DXRDemo";
 	wndHandleParams.WindowName = "DXRDemo-MainWindow";
 
-	UtilRen::SWindowParams wndParams = { UtilRen::EResolution::FULL_HD };
+	UtilRen::SWindowParams wndParams = UtilRen::SWindowParams{ UtilRen::EResolution::FULL_HD };
 
 	wndParams.WndHandle = Rendering::Window::WindowManager::CreateNewWindow(wndCreationParams, wndClassParams, adjWndRectParams, wndHandleParams);
 

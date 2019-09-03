@@ -2,7 +2,7 @@
 #pragma region Includes
 #include "MLString.h"
 #include "MLEventBase.h"
-#include "MLMap.h"
+#include "MLMultiMap.h"
 #pragma endregion //Includes
 
 
@@ -16,12 +16,12 @@ namespace Core
 		public:
 			static void Create();
 			static MLEventHandler* GetHandle();
-			void RegisterEvent(MLEventBase* inMLEvent);
+			void RegisterEvent(const MLString& inEventIdentifier, const MLEventBase& inMLEvent);
 			~MLEventHandler();
 		private:
-			MLEventHandler();
+			MLEventHandler() = default;
 			static MLEventHandler* s_eventHandlerHandle;
-			//MLMap<MLString, MLEventBase*> m_registeredMLEvents;
+			MLMultiMap<MLString, MLEventBase> m_registeredMLEvents;
 		};
 	}
 }

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Internal">
+      <UniqueIdentifier>{b91c2807-acbf-40c7-b0ad-0633008f455b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Public\MLString.h">
@@ -39,9 +42,6 @@
     <ClInclude Include="Source\Public\MLEventHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Public\MLEventBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Public\MLEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,12 +54,18 @@
     <ClInclude Include="Source\Public\MLArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Internal\MLEventBase.h">
+      <Filter>Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\MLEventBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Private\ThreadPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Private\EventHandler.cpp">
+    <ClCompile Include="Source\Private\MLEventHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -90,6 +90,11 @@ namespace Core
 				m_container.clear();
 			}
 
+			bool IsEmpty() const
+			{
+				return m_container.empty();
+			}
+
 			const T* GetData() const
 			{
 				return m_container.data();

@@ -11,12 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Internal\MLEventBase.h" />
     <ClInclude Include="Source\Public\MLCoreEnums.h" />
     <ClInclude Include="Source\Public\MLDefines.h" />
     <ClInclude Include="Source\Public\MLEvent.h" />
+    <ClInclude Include="Source\Public\MLEventBase.h" />
     <ClInclude Include="Source\Public\MLEventHandler.h" />
     <ClInclude Include="Source\Public\MLGuid.h" />
-    <ClInclude Include="Source\Public\MLEventBase.h" />
     <ClInclude Include="Source\Public\MLJob.h" />
     <ClInclude Include="Source\Public\MLMap.h" />
     <ClInclude Include="Source\Public\MLMultiMap.h" />
@@ -26,7 +27,7 @@
     <ClInclude Include="Source\Public\MLThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Private\EventHandler.cpp" />
+    <ClCompile Include="Source\Private\MLEventHandler.cpp" />
     <ClCompile Include="Source\Private\ThreadPool.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -75,6 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\Internal;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -88,6 +90,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\Internal;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -6,7 +6,7 @@ Util::Util::SMesh Util::Util::MLObjReader::ReadObjFile(const std::string& filePa
 {
 	std::ifstream objFile{ filePath };
 	SVerticesInformation infos = {};
-	std::vector<SObject> objects = {};
+	Core::Util::MLArray<SObject> objects = {};
 	if (objFile.is_open())
 	{
 		std::string line = {};
@@ -21,26 +21,26 @@ Util::Util::SMesh Util::Util::MLObjReader::ReadObjFile(const std::string& filePa
 					switch (line[1])
 					{
 					case 't':
-						infos.TextureCoords.push_back(FillTexCoordStruct(line.substr(3, line.size() - 3)));
+						infos.TextureCoords.Add(FillTexCoordStruct(line.substr(3, line.size() - 3)));
 						break;
 					case 'n':
-						infos.Normals.push_back(FillNormalStruct(line.substr(3, line.size() - 3)));
+						infos.Normals.Add(FillNormalStruct(line.substr(3, line.size() - 3)));
 						break;
 					case 'p':
-						infos.SpaceVertices.push_back(FillSpaceVertexStruct(line.substr(3, line.size() - 3)));
+						infos.SpaceVertices.Add(FillSpaceVertexStruct(line.substr(3, line.size() - 3)));
 						break;
 					}
 					break;
 				}
-				infos.Vertices.push_back(FillVertexStruct(line.substr(2, line.size() - 2)));
+				infos.Vertices.Add(FillVertexStruct(line.substr(2, line.size() - 2)));
 				break;
 			case 'u':
 				object.Material = line.substr(7, line.size() - 7);
 				break;
 			case 'o':
-				if (!object.Material.empty())
+				if (!object.Material.IsEmpty())
 				{
-					objects.push_back(object);
+					objects.Add(object);
 				}
 				object = {};
 				object.Name = line.substr(2, line.size() - 2);
@@ -52,18 +52,18 @@ Util::Util::SMesh Util::Util::MLObjReader::ReadObjFile(const std::string& filePa
 				}
 				break;
 			case 'f' :
-				object.Faces.push_back(FillFaceStruct(line.substr(2, line.size() - 2)));
+				object.Faces.Add(FillFaceStruct(line.substr(2, line.size() - 2)));
 				break;
 			case '#':
 				continue;
 			case 'm':
-				infos.MtlLibs.push_back(line.substr(7, line.size() - 7));
+				infos.MtlLibs.Add(Core::Util::MLString(line.substr(7, line.size() - 7).data()));
 				break;
 			}
 		}
 		if (!object.Material.empty())
 		{
-			objects.push_back(object);
+			objects.Add(object);
 		}
 		objFile.close();
 	}
@@ -71,10 +71,10 @@ Util::Util::SMesh Util::Util::MLObjReader::ReadObjFile(const std::string& filePa
 
 }
 
-std::vector<Util::Util::SMaterial> Util::Util::MLObjReader::ReadMtlFile(const std::string& filePath)
+Core::Util::MLArray<Util::Util::SMaterial> Util::Util::MLObjReader::ReadMtlFile(const std::string& filePath)
 {
 	std::ifstream mtlFile{ filePath };
-	std::vector<::Util::Util::SMaterial> materials = {};
+	Core::Util::MLArray<::Util::Util::SMaterial> materials = {};
 	if (mtlFile.is_open())
 	{
 		std::string line = {};

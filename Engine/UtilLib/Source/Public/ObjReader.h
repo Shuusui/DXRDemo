@@ -16,18 +16,18 @@ namespace Util
 		class UTIL_LIB_API MLObjReader
 		{
 		public:
-			static SMesh ReadObjFile(const std::string& filePath);
-			static std::vector<SMaterial> ReadMtlFile(const std::string& filePath);
+			static SMesh ReadObjFile(const Core::Util::MLString& filePath);
+			static Core::Util::MLArray<SMaterial> ReadMtlFile(const Core::Util::MLString& filePath);
 		private: 
-			static SVertex FillVertexStruct(const std::string& vertexString);
-			static SVertexNormal FillNormalStruct(const std::string& normalString);
-			static STextureCoord FillTexCoordStruct(const std::string& texCoordString);
-			static SFace FillFaceStruct(const std::string& faceString);
-			static SSpaceVertex FillSpaceVertexStruct(const std::string& spaceVertexString);
-			static SColorRGB FillColorStruct(const std::string& colorString);
-			static SColorTextureOptions FillColorTextureMapStruct(const std::string& colorMapString);
-			static SBumpTextureOptions FillBumpTextureMapStruct(const std::string& bumpMapString);
-			static SReflectionMap FillReflectionMapStruct(const std::string& reflMapString); 
+			static SVertex FillVertexStruct(const Core::Util::MLString& vertexString);
+			static SVertexNormal FillNormalStruct(const Core::Util::MLString& normalString);
+			static STextureCoord FillTexCoordStruct(const Core::Util::MLString& texCoordString);
+			static SFace FillFaceStruct(const Core::Util::MLString& faceString);
+			static SSpaceVertex FillSpaceVertexStruct(const Core::Util::MLString& spaceVertexString);
+			static SColorRGB FillColorStruct(const Core::Util::MLString& colorString);
+			static SColorTextureOptions FillColorTextureMapStruct(const Core::Util::MLString& colorMapString);
+			static SBumpTextureOptions FillBumpTextureMapStruct(const Core::Util::MLString& bumpMapString);
+			static SReflectionMap FillReflectionMapStruct(const Core::Util::MLString& reflMapString); 
 		};
 	}
 }

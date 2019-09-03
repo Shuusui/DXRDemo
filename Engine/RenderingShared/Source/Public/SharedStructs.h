@@ -6,6 +6,7 @@
 #pragma endregion
 
 #define SHARED_STRUCTS_API __declspec(dllexport)
+
 namespace Util
 {
 	namespace Rendering
@@ -27,7 +28,6 @@ namespace Util
 				,Z(z)
 				,W(w)
 			{
-
 			}
 
 			~SVector4() = default;
@@ -41,7 +41,7 @@ namespace Util
 
 		struct SHARED_STRUCTS_API SWindowParams
 		{
-			SWindowParams(const EResolution& res)
+			explicit SWindowParams(const EResolution& res)
 				:WIDTH(GetResolution(res).WIDTH)
 				,HEIGHT(GetResolution(res).HEIGHT)
 			{
@@ -53,7 +53,7 @@ namespace Util
 		};
 		struct SHARED_STRUCTS_API SWindowCreationParams
 		{
-			SWindowCreationParams(const EResolution& res)
+			explicit SWindowCreationParams(const EResolution& res)
 				:WIDTH(GetResolution(res).WIDTH)
 				,HEIGHT(GetResolution(res).HEIGHT)
 				,NCmdShow(-1)

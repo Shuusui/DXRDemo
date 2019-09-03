@@ -3,30 +3,26 @@
 #include "MLArray.h"
 #include <functional>
 #include "MLString.h"
-#include "MLEventBase.h"
 #pragma endregion 
 
 namespace Core
 {
 	namespace Util
 	{
-		template <typename T> 
-		class MLEvent : public MLEventBase
+		template <typename T1, typename T2> 
+		class MLEvent
 		{
-		public: 
-			MLEvent(const MLString& inKeyIdentifier);
-			virtual ~MLEvent();
+		public:
+			MLEvent(std::function<T1(T2)>)
+			{
+			}
+
+			~MLEvent()
+			{
+				
+			}
 		private:
-			MLArray<std::function<void(T)>> m_registeredDelegates;
+			MLArray<std::function<T1(T2)>> m_registeredDelegates;
 		};
-		template<typename T>
-		MLEvent<T>::MLEvent(const MLString& inKeyIdentifier)
-			:MLEventBase(inKeyIdentifier)
-		{
-		}
-		template<typename T>
-		MLEvent<T>::~MLEvent()
-		{
-		}
 	}
 }

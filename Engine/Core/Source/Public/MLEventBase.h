@@ -10,20 +10,13 @@ namespace Core
 		class MLEventBase
 		{
 		public: 
-			MLEventBase(const MLString& inKeyIdentifier);
+			MLEventBase(const MLString& inKeyIdentifier)
+				:m_keyIdentifier(inKeyIdentifier)
+			{
+			}
 			virtual ~MLEventBase();
 		private: 
 			MLString m_keyIdentifier;
 		};
-		inline MLEventBase::MLEventBase(const MLString& inKeyIdentifier)
-			:m_keyIdentifier(inKeyIdentifier)
-		{
-
-		}
-
-		inline MLEventBase::~MLEventBase()
-		{
-
-		}
 	}
 }
