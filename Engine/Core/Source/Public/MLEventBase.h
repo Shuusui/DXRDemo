@@ -1,6 +1,6 @@
 #pragma once
 #pragma region Includes
-#include "MLString.h"
+#include <string>
 #pragma endregion //Includes
 
 namespace Core
@@ -10,12 +10,12 @@ namespace Core
 		class MLEventBase
 		{
 		public: 
-			MLEventBase(const MLString& inKeyIdentifier);
+			MLEventBase(const std::string& inKeyIdentifier);
 			virtual ~MLEventBase();
 		private: 
-			MLString m_keyIdentifier;
+			std::string m_keyIdentifier;
 		};
-		inline MLEventBase::MLEventBase(const MLString& inKeyIdentifier)
+		inline MLEventBase::MLEventBase(const std::string& inKeyIdentifier)
 			:m_keyIdentifier(inKeyIdentifier)
 		{
 

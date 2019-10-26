@@ -1,9 +1,9 @@
 #pragma once
 #pragma region Includes
-#include "MLArray.h"
 #include <functional>
-#include "MLString.h"
+#include <string>
 #include "MLEventBase.h"
+#include <vector>
 #pragma endregion 
 
 namespace Core
@@ -14,13 +14,13 @@ namespace Core
 		class MLEvent : public MLEventBase
 		{
 		public: 
-			MLEvent(const MLString& inKeyIdentifier);
+			MLEvent(const std::string& inKeyIdentifier);
 			virtual ~MLEvent();
 		private:
-			MLArray<std::function<void(T)>> m_registeredDelegates;
+			std::vector<std::function<void(T)>> m_registeredDelegates;
 		};
 		template<typename T>
-		MLEvent<T>::MLEvent(const MLString& inKeyIdentifier)
+		MLEvent<T>::MLEvent(const std::string& inKeyIdentifier)
 			:MLEventBase(inKeyIdentifier)
 		{
 		}

@@ -21,8 +21,8 @@ namespace Util
 			static void Shutdown();
 
 			void Init();
-			std::vector<std::wstring> GetShaderPaths() const;
-			std::vector<::Util::Util::SMesh> GetMeshes() const;
+			[[nodiscard]] std::vector<std::wstring> GetShaderPaths() const;
+			[[nodiscard]] std::vector<Util::SMesh> GetMeshes() const;
 			~AssetManager();
 		private:
 			AssetManager();
@@ -36,7 +36,7 @@ namespace Util
 			std::string m_objectsDir;
 			std::string m_materialsDir;
 			std::vector<std::wstring> m_shaderPaths;
-			std::vector<::Util::Util::SMesh> m_loadedMeshes;
+			std::vector<Util::SMesh> m_loadedMeshes;
 			static AssetManager* s_assetManagerHandle;
 		};
 	}
