@@ -1,10 +1,10 @@
 #pragma region Includes
 #include <windows.h>
-#include "DX12.h"
 #include "SharedMacros.h"
 #include "WindowManager.h"
 #include "SharedStructs.h"
 #include "AssetManager.h"
+#include "Vulkan.h"
 #pragma endregion
 
 
@@ -26,10 +26,8 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	UtilRen::SWindowParams wndParams = { UtilRen::EResolution::FULL_HD };
 
 	wndParams.WndHandle = Rendering::Window::WindowManager::CreateNewWindow(wndCreationParams, wndClassParams, adjWndRectParams, wndHandleParams);
-
-	Rendering::DX12* dx12 = new Rendering::DX12(wndParams);
-	dx12->Init();
-
+	Rendering::Vulkan::Vulkan vulkanApi = {};
+	vulkanApi.Init();
 	UtAI::AssetManager::Create();
 	UtAI::AssetManager* assetManager = UtAI::AssetManager::GetHandle();
 	assetManager->Init();
@@ -43,16 +41,11 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 			positions.push_back(vector);
 		}
 	}
-	dx12->LoadAssets(positions);
-	dx12->LoadShader(assetManager->GetShaderPaths());
 	MSG msg = {};
 
 	while (msg.message != WM_QUIT)
 	{
 		Rendering::Window::WindowManager::RunWindow(wndParams.WndHandle, msg);
-		dx12->OnRender();
 	}
-	dx12->OnDestroy();
-	delete(dx12);
 	return static_cast<int>(msg.wParam);
 }
