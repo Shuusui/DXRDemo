@@ -24,10 +24,11 @@ namespace Rendering
 			void Init();
 			void Destroy();
 		private:
-			bool CheckValidationLayerSupport();
+			static bool CheckValidationLayerSupport();
 			void CreateInstance();
 			void SetupDebugMessenger();
 			std::vector<const char*> GetRequiredExtensions();
+			static void PopulateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
 
 			static VkResult CreateDebugUtilsMessengerEXT(VkInstance instance,
 				const VkDebugUtilsMessengerCreateInfoEXT* createInfo,
@@ -37,6 +38,9 @@ namespace Rendering
 				VkDebugUtilsMessageTypeFlagsEXT messageType,
 				const VkDebugUtilsMessengerCallbackDataEXT* callbackData,
 				void* userData);
+			static void DestroyDebugUtilsMessengerEXT(VkInstance instance,
+				VkDebugUtilsMessengerEXT debugMessenger,
+				const VkAllocationCallbacks* allocator);
 
 			VkInstance m_instance;
 			VkDebugUtilsMessengerEXT m_debugMessenger;

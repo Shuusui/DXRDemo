@@ -15,6 +15,11 @@ void Rendering::Vulkan::Vulkan::Init()
 
 void Rendering::Vulkan::Vulkan::Destroy()
 {
+	if(bEnableValidationLayers)
+	{
+		DestroyDebugUtilsMessengerEXT(m_instance, m_debugMessenger, nullptr);
+	}
+
 	vkDestroyInstance(m_instance, nullptr);
 }
 
@@ -42,7 +47,6 @@ bool Rendering::Vulkan::Vulkan::CheckValidationLayerSupport()
 			return false;
 		}
 	}
-
 	return true;
 }
 
@@ -65,10 +69,20 @@ void Rendering::Vulkan::Vulkan::CreateInstance()
 	createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 	createInfo.pApplicationInfo = &appInfo;
 	createInfo.enabledLayerCount = 0;
+
+	VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo = {};
 	if(bEnableValidationLayers)
 	{
 		createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
 		createInfo.ppEnabledLayerNames = validationLayers.data();
+
+		PopulateDebugMessengerCreateInfo(debugCreateInfo);
+		createInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
+	}
+	else
+	{
+		createInfo.enabledLayerCount = 0;
+		createInfo.pNext = nullptr;
 	}
 	const std::vector<const char*>& extensions = GetRequiredExtensions();
 	createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
@@ -83,12 +97,12 @@ void Rendering::Vulkan::Vulkan::CreateInstance()
 
 void Rendering::Vulkan::Vulkan::SetupDebugMessenger()
 {
+	if constexpr (!bEnableValidationLayers)
+	{
+		return;
+	}
 	VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
-	createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
-	createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-	createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
-	createInfo.pfnUserCallback = DebugCallback;
-	createInfo.pUserData = nullptr;
+	PopulateDebugMessengerCreateInfo(createInfo);
 
 	if(CreateDebugUtilsMessengerEXT(m_instance, &createInfo, nullptr, &m_debugMessenger) != VK_SUCCESS)
 	{
@@ -119,6 +133,16 @@ std::vector<const char*> Rendering::Vulkan::Vulkan::GetRequiredExtensions()
 	return extensions;
 }
 
+void Rendering::Vulkan::Vulkan::PopulateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo)
+{
+	createInfo = {};
+	createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+	createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+	createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+	createInfo.pfnUserCallback = DebugCallback;
+	createInfo.pUserData = nullptr;
+}
+
 VkBool32 Rendering::Vulkan::Vulkan::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
 	VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* callbackData,
 	void* userData)
@@ -129,4 +153,14 @@ VkBool32 Rendering::Vulkan::Vulkan::DebugCallback(VkDebugUtilsMessageSeverityFla
 		
 	}
 	return VK_FALSE;
+}
+
+void Rendering::Vulkan::Vulkan::DestroyDebugUtilsMessengerEXT(VkInstance instance,
+	VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* allocator)
+{
+	const auto function = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
+	if(function != nullptr)
+	{
+		function(instance, debugMessenger, allocator);
+	}
 }
