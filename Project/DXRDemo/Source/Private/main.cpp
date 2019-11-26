@@ -46,6 +46,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	while (msg.message != WM_QUIT)
 	{
 		Rendering::Window::WindowManager::RunWindow(wndParams.WndHandle, msg);
+		vulkanApi.Run();
 	}
 	vulkanApi.Destroy();
 	return static_cast<int>(msg.wParam);

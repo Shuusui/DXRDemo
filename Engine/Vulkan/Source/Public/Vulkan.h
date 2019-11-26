@@ -38,7 +38,7 @@ namespace Rendering
 		"VK_LAYER_KHRONOS_validation"
 		};
 		const std::vector<const char*> DEVICE_EXTENSIONS = {
-		VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+		VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
 
 #ifdef _DEBUG
@@ -62,6 +62,8 @@ namespace Rendering
 			void PickPhysicalDevice();
 			void CreateLogicalDevice();
 			void CreateSwapChain();
+			void CreateImageViews();
+			void CreateGraphicsPipeline();
 
 			std::vector<const char*> GetRequiredExtensions();
 			[[nodiscard]] QueueFamilyIndices FindQueueFamilies(const VkPhysicalDevice& device) const;
@@ -81,7 +83,7 @@ namespace Rendering
 			static void DestroyDebugUtilsMessengerEXT(VkInstance instance,
 				VkDebugUtilsMessengerEXT debugMessenger,
 				const VkAllocationCallbacks* allocator);
-			static bool IsDeviceSuitable(const VkPhysicalDevice& device);
+			[[nodiscard]] bool IsDeviceSuitable(const VkPhysicalDevice& device) const;
 			static bool CheckDeviceExtensionSupport(const VkPhysicalDevice& device);
 			static VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 			static VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
@@ -96,6 +98,11 @@ namespace Rendering
 			HWND m_windowHandle;
 			HINSTANCE m_hInstance;
 			VkQueue m_presentQueue;
+			VkSwapchainKHR m_swapChain;
+			std::vector<VkImage> m_swapChainImages;
+			VkFormat m_swapChainImageFormat;
+			VkExtent2D m_swapChainExtent;
+			std::vector<VkImageView> m_swapChainImageViews;
 		};
 	}
 }
