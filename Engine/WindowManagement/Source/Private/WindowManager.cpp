@@ -1,4 +1,6 @@
 #include "../Public/WindowManager.h"
+//#define GLFW_INCLUDE_VULKAN
+//#include <GLFW/glfw3.h>
 
 LRESULT CALLBACK WindowProc(HWND hwnd,
 	UINT message,
@@ -21,7 +23,7 @@ HWND Rendering::Window::WindowManager::CreateNewWindow(const UtilRen::SWindowCre
 	wndClass.cbSize = sizeof(WNDCLASSEX); 
 	wndClass.style = wndClassParams.Style;
 	wndClass.lpfnWndProc = WindowProc;
-	wndClass.hInstance = wndCreationParams.HInstance; 
+	wndClass.hInstance = wndCreationParams.HInstance;
 	wndClass.lpszClassName = wndClassParams.ClassName; 
 	wndClass.hbrBackground = wndClassParams.BackgroundColor; 
 	RECT rect = {};

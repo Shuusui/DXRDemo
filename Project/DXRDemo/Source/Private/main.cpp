@@ -26,7 +26,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	UtilRen::SWindowParams wndParams = { UtilRen::EResolution::FULL_HD };
 
 	wndParams.WndHandle = Rendering::Window::WindowManager::CreateNewWindow(wndCreationParams, wndClassParams, adjWndRectParams, wndHandleParams);
-	Rendering::Vulkan::Vulkan vulkanApi = {};
+	Rendering::Vulkan::Vulkan vulkanApi = {wndParams.WndHandle, hInstance};
 	vulkanApi.Init();
 	UtAI::AssetManager::Create();
 	UtAI::AssetManager* assetManager = UtAI::AssetManager::GetHandle();
@@ -47,5 +47,6 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	{
 		Rendering::Window::WindowManager::RunWindow(wndParams.WndHandle, msg);
 	}
+	vulkanApi.Destroy();
 	return static_cast<int>(msg.wParam);
 }
