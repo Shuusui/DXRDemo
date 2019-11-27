@@ -4,6 +4,7 @@
 #define VK_USE_PLATFORM_WIN32_KHR
 #define NOMINMAX
 #include "vulkan/vulkan.h"
+#include <string>
 #define VULKAN_API __declspec(dllexport)
 
 namespace Rendering
@@ -34,12 +35,15 @@ namespace Rendering
 			}
 		};
 
-		const std::vector<const char*> VALIDATION_LAYERS = {
-		"VK_LAYER_KHRONOS_validation"
+		const std::vector<const char*> VALIDATION_LAYERS = 
+		{
+			"VK_LAYER_KHRONOS_validation"
 		};
-		const std::vector<const char*> DEVICE_EXTENSIONS = {
-		VK_KHR_SWAPCHAIN_EXTENSION_NAME
+		const std::vector<const char*> DEVICE_EXTENSIONS = 
+		{
+			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
+		const int32_t MAX_FRAMES_IN_FLIGHT = 2;
 
 #ifdef _DEBUG
 		const bool bEnableValidationLayers = true;
@@ -63,12 +67,20 @@ namespace Rendering
 			void CreateLogicalDevice();
 			void CreateSwapChain();
 			void CreateImageViews();
+			void CreateRenderPass();
 			void CreateGraphicsPipeline();
+			void CreateFrameBuffers();
+			void CreateCommandPool();
+			void CreateCommandBuffers();
+			void CreateSyncObjects();
+
+			void DrawFrame();
 
 			std::vector<const char*> GetRequiredExtensions();
 			[[nodiscard]] QueueFamilyIndices FindQueueFamilies(const VkPhysicalDevice& device) const;
 			[[nodiscard]] int32_t RateDeviceSuitability(const VkPhysicalDevice& device) const;
 			[[nodiscard]] SwapChainSupportDetails QuerySwapChainSupport(const VkPhysicalDevice& device) const;
+			[[nodiscard]] VkShaderModule CreateShaderModule(const std::vector<char>& code) const;
 
 			static void PopulateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
 
@@ -88,6 +100,7 @@ namespace Rendering
 			static VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 			static VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
 			static VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+			static std::vector<char> ReadFile(const std::string& fileName);
 
 			VkInstance m_instance;
 			VkDebugUtilsMessengerEXT m_debugMessenger;
@@ -98,11 +111,22 @@ namespace Rendering
 			HWND m_windowHandle;
 			HINSTANCE m_hInstance;
 			VkQueue m_presentQueue;
-			VkSwapchainKHR m_swapChain;
+			VkSwapchainKHR m_swapchain;
 			std::vector<VkImage> m_swapChainImages;
 			VkFormat m_swapChainImageFormat;
 			VkExtent2D m_swapChainExtent;
 			std::vector<VkImageView> m_swapChainImageViews;
+			VkRenderPass m_renderPass;
+			VkPipelineLayout m_pipelineLayout;
+			VkPipeline m_graphicsPipeline;
+			std::vector<VkFramebuffer> m_swapChainFramebuffers;
+			VkCommandPool m_commandPool;
+			std::vector<VkCommandBuffer> m_commandBuffers;
+			std::vector<VkSemaphore> m_imageAvailableSemaphores;
+			std::vector<VkSemaphore> m_renderFinishedSemaphores;
+			std::vector<VkFence> m_inFlightFences;
+			std::vector<VkFence> m_imagesInFlight;
+			size_t m_currentFrame;
 		};
 	}
 }
