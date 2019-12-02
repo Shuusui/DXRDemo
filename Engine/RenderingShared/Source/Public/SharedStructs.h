@@ -44,12 +44,14 @@ namespace Util
 			SWindowParams(const EResolution& res)
 				:WIDTH(GetResolution(res).WIDTH)
 				,HEIGHT(GetResolution(res).HEIGHT)
+				,WndGuid({})
 			{
 
 			}
 			HWND WndHandle = {};
 			const unsigned short WIDTH;
 			const unsigned short HEIGHT;
+			const GUID WndGuid;
 		};
 		struct SHARED_STRUCTS_API SWindowCreationParams
 		{

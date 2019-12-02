@@ -52,6 +52,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXRDemo", "Project\DXRDemo\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vulkan", "Engine\Vulkan\Vulkan.vcxproj", "{EA550B1D-DFF7-4E2D-8ECD-C159A2A73075}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C5D83BEF-8085-4163-9204-CD79DA119E9B} = {C5D83BEF-8085-4163-9204-CD79DA119E9B}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Renderer", "Renderer", "{DE96B609-ED0E-4E75-841F-BA7CE4477827}"
 EndProject

@@ -2,7 +2,6 @@
 #include <windows.h>
 #include "SharedMacros.h"
 #include "WindowManager.h"
-#include "SharedStructs.h"
 #include "AssetManager.h"
 #include "Vulkan.h"
 #pragma endregion
@@ -25,8 +24,9 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 	UtilRen::SWindowParams wndParams = { UtilRen::EResolution::FULL_HD };
 
-	wndParams.WndHandle = Rendering::Window::WindowManager::CreateNewWindow(wndCreationParams, wndClassParams, adjWndRectParams, wndHandleParams);
-	Rendering::Vulkan::Vulkan vulkanApi = {wndParams.WndHandle, hInstance};
+	const GUID wndGuid = Rendering::Window::WindowManager::CreateNewWindow(wndCreationParams, wndClassParams, adjWndRectParams, wndHandleParams);
+	wndParams.WndHandle = Rendering::Window::WindowManager::GetWindowHandle(wndGuid);
+	Rendering::Vulkan::Vulkan vulkanApi = {wndParams.WndHandle, wndParams.WndGuid, hInstance};
 	vulkanApi.Init();
 	UtAI::AssetManager::Create();
 	UtAI::AssetManager* assetManager = UtAI::AssetManager::GetHandle();

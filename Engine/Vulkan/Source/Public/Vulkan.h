@@ -54,7 +54,7 @@ namespace Rendering
 		class VULKAN_API Vulkan
 		{
 		public:
-			Vulkan(const HWND& windowHandle, const HINSTANCE& hInstance);
+			Vulkan(const HWND& windowHandle, const GUID& wndGuid, const HINSTANCE& hInstance);
 			void Init();
 			void Run();
 			void Destroy();
@@ -65,22 +65,26 @@ namespace Rendering
 			void CreateSurface();
 			void PickPhysicalDevice();
 			void CreateLogicalDevice();
-			void CreateSwapChain();
+			void CreateSwapchain();
 			void CreateImageViews();
 			void CreateRenderPass();
 			void CreateGraphicsPipeline();
-			void CreateFrameBuffers();
+			void CreateFramebuffers();
 			void CreateCommandPool();
 			void CreateCommandBuffers();
 			void CreateSyncObjects();
 
 			void DrawFrame();
 
+			void RecreateSwapchain();
+			void CleanupSwapchain();
+
 			std::vector<const char*> GetRequiredExtensions();
 			[[nodiscard]] QueueFamilyIndices FindQueueFamilies(const VkPhysicalDevice& device) const;
 			[[nodiscard]] int32_t RateDeviceSuitability(const VkPhysicalDevice& device) const;
 			[[nodiscard]] SwapChainSupportDetails QuerySwapChainSupport(const VkPhysicalDevice& device) const;
 			[[nodiscard]] VkShaderModule CreateShaderModule(const std::vector<char>& code) const;
+			[[nodiscard]] VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
 
 			static void PopulateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
 
@@ -99,8 +103,8 @@ namespace Rendering
 			static bool CheckDeviceExtensionSupport(const VkPhysicalDevice& device);
 			static VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 			static VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
-			static VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 			static std::vector<char> ReadFile(const std::string& fileName);
+			static void FramebufferResizeCallback(HWND wndHandle, const int32_t& width, const int32_t& height);
 
 			VkInstance m_instance;
 			VkDebugUtilsMessengerEXT m_debugMessenger;
@@ -112,14 +116,14 @@ namespace Rendering
 			HINSTANCE m_hInstance;
 			VkQueue m_presentQueue;
 			VkSwapchainKHR m_swapchain;
-			std::vector<VkImage> m_swapChainImages;
-			VkFormat m_swapChainImageFormat;
-			VkExtent2D m_swapChainExtent;
-			std::vector<VkImageView> m_swapChainImageViews;
+			std::vector<VkImage> m_swapchainImages;
+			VkFormat m_swapchainImageFormat;
+			VkExtent2D m_swapchainExtent;
+			std::vector<VkImageView> m_swapchainImageViews;
 			VkRenderPass m_renderPass;
 			VkPipelineLayout m_pipelineLayout;
 			VkPipeline m_graphicsPipeline;
-			std::vector<VkFramebuffer> m_swapChainFramebuffers;
+			std::vector<VkFramebuffer> m_swapchainFramebuffers;
 			VkCommandPool m_commandPool;
 			std::vector<VkCommandBuffer> m_commandBuffers;
 			std::vector<VkSemaphore> m_imageAvailableSemaphores;
@@ -127,6 +131,7 @@ namespace Rendering
 			std::vector<VkFence> m_inFlightFences;
 			std::vector<VkFence> m_imagesInFlight;
 			size_t m_currentFrame;
+			bool m_bFramebufferResized;
 		};
 	}
 }
